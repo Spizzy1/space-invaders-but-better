@@ -31,15 +31,16 @@ public class EnemyManager : MonoBehaviour
     {
         
         float minCost = enemyTypes.Where(x => x.cost > 0).Min(x => x.cost);
+        Debug.Log(minCost);
         int currentGrid = 0;
         int attempts = 0;
-        while(points >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 1000 && currentGrid <= grid.Count-1)
+        while(points >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 500 && currentGrid <= grid.Count-1)
         {
             enemyData selectedEnemy = null;
             while (selectedEnemy == null && points >= minCost)
             {
                 int randomEnemy = Random.Range(0, enemyTypes.Count);
-                if (enemyTypes[randomEnemy].cost < points)
+                if (enemyTypes[randomEnemy].cost <= points)
                 {
                     Debug.Log("please...");
                     selectedEnemy = enemyTypes[randomEnemy];
@@ -47,8 +48,7 @@ public class EnemyManager : MonoBehaviour
             }
             if (selectedEnemy != null)
             {
-                //int randomSpawn = Random.Range(1, Mathf.Min(Mathf.FloorToInt(points / selectedEnemy.cost), Mathf.FloorToInt(grid[currentGrid].sizeX.Count) / selectedEnemy.slotX));
-                int randomSpawn = 1;
+                int randomSpawn = Random.Range(1, Mathf.Min(Mathf.FloorToInt(points / selectedEnemy.cost), Mathf.FloorToInt(grid[currentGrid].sizeX.Count) / selectedEnemy.slotX));
                 bool canSpawn = true;
                 int spawnIndex = -1;
                 for (int o = 0; o < randomSpawn; o++)
@@ -117,8 +117,12 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                break;
+            }
             failedSpawn:
-            if((attempts > 200 && currentGrid+1 < grid.Count) || !grid[currentGrid].sizeX.Contains(false))
+            if((attempts > 100 && currentGrid+1 < grid.Count) || !grid[currentGrid].sizeX.Contains(false))
             {
                 currentGrid++;
                 attempts = 0;

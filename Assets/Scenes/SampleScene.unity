@@ -1186,7 +1186,7 @@ MonoBehaviour:
     slotX: 1
     prefab: {fileID: 5390326418398953632, guid: 64c51a32a8c1c6e4f8c3b0f663b5c89d, type: 3}
     cost: 30
-  points: 10000
+  points: 800
   grid:
   - sizeX: 00000000000000000000
   - sizeX: 00000000000000000000
