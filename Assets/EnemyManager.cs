@@ -33,10 +33,10 @@ public class EnemyManager : MonoBehaviour
         float minCost = enemyTypes.Where(x => x.cost > 0).Min(x => x.cost);
         int currentGrid = 0;
         int attempts = 0;
-        while(points > minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 50 && currentGrid <= grid.Count-1)
+        while(points >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 1000 && currentGrid <= grid.Count-1)
         {
             enemyData selectedEnemy = null;
-            while (selectedEnemy == null && points > minCost)
+            while (selectedEnemy == null && points >= minCost)
             {
                 int randomEnemy = Random.Range(0, enemyTypes.Count);
                 if (enemyTypes[randomEnemy].cost < points)
@@ -57,11 +57,18 @@ public class EnemyManager : MonoBehaviour
                     {
                         if(grid.Count - currentGrid + 1 < selectedEnemy.slotY)
                         {
-                            return;
+                            goto failedSpawn;
                         }
-                        else if(grid[currentGrid + i].sizeX.Count != grid[currentGrid].sizeX.Count)
+                        else if(currentGrid+i+1 <= grid.Count)
                         {
-                            return;   
+                            if (grid[currentGrid + i].sizeX.Count != grid[currentGrid].sizeX.Count)
+                            {
+                                goto failedSpawn;
+                            }
+                        }
+                        else
+                        {
+                            goto failedSpawn;
                         }
                     }
                     for (int i = 0; i < grid[currentGrid].sizeX.Count; i++)
@@ -93,28 +100,32 @@ public class EnemyManager : MonoBehaviour
                     if (canSpawn && spawnIndex != -1)
                     {
                         points -= selectedEnemy.cost;
-                        GameObject sawnedEnemy = Instantiate(selectedEnemy.prefab);
+                        GameObject spawnedEnemy = Instantiate(selectedEnemy.prefab);
                         for(int i = 0; i < selectedEnemy.slotX; i++)
                         {
                             for(int j = 0; j < selectedEnemy.slotY; j++)
                             {
                                 Debug.Log(spawnIndex);
-                                grid[j].sizeX[i + spawnIndex] = true;
+                                grid[j + currentGrid].sizeX[i + spawnIndex] = true;
                             }
                         }
-                        float yPosition = GameObject.Find("Spawn list").transform.position.y - ((selectedEnemy.slotY-1) * locations[spawnIndex].transform.localScale.y/2);
-                        float xPosition = (locations[spawnIndex].transform.position.x - locations[spawnIndex].transform.localScale.x / 2) + (locations[spawnIndex].transform.localScale.x / 2) * selectedEnemy.slotX;
-                        sawnedEnemy.transform.position = new Vector3(xPosition, yPosition, 0);
+                        float yPosition = GameObject.Find("Spawn list").transform.position.y - ((selectedEnemy.slotY-1 + (currentGrid*2)) * locations[spawnIndex].transform.localScale.y/2);
+                        float xPosition = ((locations[spawnIndex].transform.position.x - locations[spawnIndex].transform.localScale.x / 2) + (locations[spawnIndex].transform.localScale.x / 2) * selectedEnemy.slotX);
+                        spawnedEnemy.transform.parent = GameObject.Find("EnemyGroup").transform;
+                        spawnedEnemy.transform.position = new Vector3(xPosition, yPosition, -2);
 
                     }
                 }
             }
-            else
+            failedSpawn:
+            if((attempts > 200 && currentGrid+1 < grid.Count) || !grid[currentGrid].sizeX.Contains(false))
             {
-                return;
+                currentGrid++;
+                attempts = 0;
             }
             attempts++;
         }
+        GameObject.Find("EnemyGroup").transform.position = new Vector3(1.6f, GameObject.Find("EnemyGroup").transform.position.y, GameObject.Find("EnemyGroup").transform.position.z);
     }
     [System.Serializable]
     public class enemyData
