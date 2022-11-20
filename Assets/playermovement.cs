@@ -11,7 +11,10 @@ public class playermovement : MonoBehaviour
 
     private void Start()
     {
-
+        foreach(Transform child in this.transform)
+        {
+            child.position = new Vector2()
+        }
     }
 
     void Update()
