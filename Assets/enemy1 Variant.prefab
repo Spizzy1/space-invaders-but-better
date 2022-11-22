@@ -7,9 +7,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: enemyCustomization.HP
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095041, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_Name
       value: enemy1 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095041, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095042, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_Color.b
@@ -22,6 +30,10 @@ PrefabInstance:
     - target: {fileID: 1000240847066095042, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_Color.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095043, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095045, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_RootOrder

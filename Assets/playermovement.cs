@@ -13,7 +13,7 @@ public class playermovement : MonoBehaviour
     {
         foreach(Transform child in this.transform)
         {
-            child.position = new Vector2();
+            //child.position = new Vector2();
         }
     }
 

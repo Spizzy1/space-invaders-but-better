@@ -15,14 +15,22 @@ public class enemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (enemyCustomization.HP <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "bullet")
+        {
+            enemyCustomization.HP -= collision.GetComponent<bulletData>().damage;
+        }
     }
     [System.Serializable, SerializeField]
     class enemy
     {
         [SerializeField]
-        float speed;
-        [SerializeField]
-        float HP;
+        public float HP;
     }
 }

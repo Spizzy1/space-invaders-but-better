@@ -9,11 +9,7 @@ public class CameraStandardUnits : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        camera = this.gameObject;
-    }
-    private void Awake()
-    {
-        conversionFactor = (camera.GetComponent<Camera>().orthographicSize * 2) / GetComponent<Camera>().pixelHeight;
+
     }
     // Update is called once per frame
     void Update()

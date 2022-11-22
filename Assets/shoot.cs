@@ -12,6 +12,7 @@ public class shoot : MonoBehaviour
     bool onCooldown = false;
     [SerializeField]
     float speed;
+    public float damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,7 @@ public class shoot : MonoBehaviour
         if(Input.GetKey(KeyCode.Space) && !onCooldown)
         {
             GameObject bulletinstance = Instantiate(bulletPrefab);
+            bulletinstance.GetComponent<bulletData>().damage = damage;
             bulletinstance.transform.position = this.gameObject.transform.position;
             bulletinstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
             onCooldown = true;

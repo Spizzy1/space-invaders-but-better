@@ -42,7 +42,6 @@ public class EnemyManager : MonoBehaviour
                 int randomEnemy = Random.Range(0, enemyTypes.Count);
                 if (enemyTypes[randomEnemy].cost <= points)
                 {
-                    Debug.Log("please...");
                     selectedEnemy = enemyTypes[randomEnemy];
                 }
             }
