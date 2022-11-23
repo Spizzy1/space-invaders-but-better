@@ -17,6 +17,7 @@ public class enemyScript : MonoBehaviour
     {
         if (enemyCustomization.HP <= 0)
         {
+            GameObject.Find("Points").GetComponent<AddPoints>().pointAdd(enemyCustomization.points);
             Destroy(gameObject);
         }
     }
@@ -24,7 +25,9 @@ public class enemyScript : MonoBehaviour
     {
         if(collision.gameObject.tag == "bullet")
         {
+            Debug.Log("agg");
             enemyCustomization.HP -= collision.GetComponent<bulletData>().damage;
+            Destroy(collision.gameObject);
         }
     }
     [System.Serializable, SerializeField]
@@ -32,5 +35,6 @@ public class enemyScript : MonoBehaviour
     {
         [SerializeField]
         public float HP;
+        public float points;
     }
 }

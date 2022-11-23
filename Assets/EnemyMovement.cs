@@ -26,16 +26,28 @@ public class EnemyMovement : MonoBehaviour
     }
     void resetPos()
     {
-
+        gameObject.transform.position = new Vector3(0, 0, 0);
     }
     IEnumerator move()
     {
+        List<GameObject> allChildrenObjects = new List<GameObject>();
+        foreach (Transform child in this.gameObject.transform)
+        {
+            allChildrenObjects.Add(child.gameObject);
+        }
         GameObject firstX = refreshFirst();
         GameObject lastX = refreshLast();
         addVector = new Vector3(0.5f, 0, 0);
         bool canDo = true;
+        stopWhile:
         while (canDo)
         {
+            if (true)
+            {
+                Debug.Log("aaaaaaaaaaaaaaaa");
+                canDo = false;
+                goto stopWhile;
+            }
             if(firstX == null)
             {
                 firstX = refreshFirst();
@@ -43,7 +55,7 @@ public class EnemyMovement : MonoBehaviour
             if(lastX == null)
             {
                 lastX = refreshLast();
-            }
+            }   
             if(lastX != null && firstX != null)
             {
                 bool goDown = false;
@@ -57,7 +69,7 @@ public class EnemyMovement : MonoBehaviour
                     addVector *= -1;
                     this.gameObject.transform.position += new Vector3(0, -0.5f, 0);
                 }
-                this.gameObject.transform.position = new Vector3(Mathf.Clamp(this.gameObject.transform.position.x, wallNegative.transform.position.x + (firstX.transform.position.x - this.gameObject.transform.position.x), wallPositive.transform.position.x - (lastX.transform.position.x - this.gameObject.transform.position.x)), this.gameObject.transform.position.y, 0);
+                //this.gameObject.transform.position = new Vector3(Mathf.Clamp(this.gameObject.transform.position.x, (wallNegative.transform.position.x + firstX.transform.localScale.x/2) + (gameObject.transform.position.x - firstX.transform.position.x), wallPositive.transform.position.x - (lastX.transform.position.x - this.gameObject.transform.position.x)), this.gameObject.transform.position.y, 0);
 
             }
             else
@@ -66,6 +78,7 @@ public class EnemyMovement : MonoBehaviour
             }
             yield return new WaitForSeconds(0.5f / speed);
         }
+        resetPos();
     }
     GameObject refreshFirst()
     {

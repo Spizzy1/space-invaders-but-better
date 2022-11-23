@@ -126,3 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCustomization:
     HP: 10
+    points: 100
