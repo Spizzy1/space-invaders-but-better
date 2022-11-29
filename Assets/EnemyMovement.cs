@@ -41,7 +41,8 @@ public class EnemyMovement : MonoBehaviour
         GameObject lastX = refreshLast();
         addVector = new Vector3(0.5f, 0, 0);
         bool canDo = true;
-        stopWhile:
+        bool allGone = false;
+    stopWhile:
         while (canDo)
         {
             allChildrenObjects = allChildrenObjects.Where(x => x != null).ToList();
