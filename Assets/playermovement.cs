@@ -7,7 +7,7 @@ public class playermovement : MonoBehaviour
     public float movespeed = 5f;
     public Rigidbody2D rigidbody;
     public Vector2 movement;
-    float cordinate = 11.35f;
+    float cordinate = 10.8f;
 
     private void Start()
     {
