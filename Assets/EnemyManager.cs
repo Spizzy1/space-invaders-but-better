@@ -20,6 +20,7 @@ public class EnemyManager : MonoBehaviour
             locations.Add(child.gameObject);
         }
         spawnEnemies();
+        EnemyMovement.onReset += prepareWave;
     }
 
     // Update is called once per frame
@@ -27,27 +28,43 @@ public class EnemyManager : MonoBehaviour
     {
 
     }
+    void prepareWave(int wave)
+    {
+        for (int i = 0; grid.Count > i; i++)
+        {
+            for(int j = 0; grid[i].sizeX.Count > j; j++)
+            {
+                grid[i].sizeX[j] = false; 
+            }
+        }
+        GameObject.Find("EnemyGroup").GetComponent<EnemyMovement>().speed *= 2;
+        float waveFloat = (float)wave;
+        points = Mathf.Clamp((Mathf.Abs(Mathf.Pow(points, 1 + waveFloat * 0.1f))), 500, 100000000);
+        Debug.Log(Mathf.Pow(points, wave));
+        Debug.Log(points);
+        Invoke("spawnEnemies", 1);
+    }
     void spawnEnemies()
     {
-        
+        float savePoints = points;
         float minCost = enemyTypes.Where(x => x.cost > 0).Min(x => x.cost);
         Debug.Log(minCost);
         int currentGrid = 0;
         int attempts = 0;
-        while(points >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 500 && currentGrid <= grid.Count-1)
+          while(savePoints >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 500 && currentGrid <= grid.Count-1)
         {
             enemyData selectedEnemy = null;
-            while (selectedEnemy == null && points >= minCost)
+            while (selectedEnemy == null && savePoints >= minCost)
             {
                 int randomEnemy = Random.Range(0, enemyTypes.Count);
-                if (enemyTypes[randomEnemy].cost <= points)
+                if (enemyTypes[randomEnemy].cost <= savePoints)
                 {
                     selectedEnemy = enemyTypes[randomEnemy];
                 }
             }
             if (selectedEnemy != null)
             {
-                int randomSpawn = Random.Range(1, Mathf.Min(Mathf.FloorToInt(points / selectedEnemy.cost), Mathf.FloorToInt(grid[currentGrid].sizeX.Count) / selectedEnemy.slotX));
+                int randomSpawn = Random.Range(1, Mathf.Min(Mathf.FloorToInt(savePoints / selectedEnemy.cost), Mathf.FloorToInt(grid[currentGrid].sizeX.Count) / selectedEnemy.slotX));
                 bool canSpawn = true;
                 int spawnIndex = -1;
                 for (int o = 0; o < randomSpawn; o++)
@@ -98,7 +115,7 @@ public class EnemyManager : MonoBehaviour
                     }
                     if (canSpawn && spawnIndex != -1)
                     {
-                        points -= selectedEnemy.cost;
+                        savePoints -= selectedEnemy.cost;
                         GameObject spawnedEnemy = Instantiate(selectedEnemy.prefab);
                         for(int i = 0; i < selectedEnemy.slotX; i++)
                         {
@@ -129,6 +146,7 @@ public class EnemyManager : MonoBehaviour
             attempts++;
         }
         GameObject.Find("EnemyGroup").transform.position = new Vector3(1.6f, GameObject.Find("EnemyGroup").transform.position.y, GameObject.Find("EnemyGroup").transform.position.z);
+        StartCoroutine(GameObject.Find("EnemyGroup").GetComponent<EnemyMovement>().move());
     }
     [System.Serializable]
     public class enemyData

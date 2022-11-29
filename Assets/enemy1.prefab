@@ -125,5 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCustomization:
-    HP: 10
+    HP: 1
     points: 100

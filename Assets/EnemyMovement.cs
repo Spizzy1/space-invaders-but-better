@@ -5,18 +5,20 @@ using System.Linq;
 
 public class EnemyMovement : MonoBehaviour
 {
-    float speed;
+    public delegate void resetEnemies(int wave);
+    public static event resetEnemies onReset;
+    public float speed = 1;
+    public int wave = 1;
     public Vector3 addVector;
+    [SerializeField]
     GameObject wallNegative;
+    [SerializeField]
     GameObject wallPositive;
     // Start is called before the first frame update
     void Start()
     {
-        wallNegative = GameObject.Find("Wall");
-        wallPositive = GameObject.Find("Wall (1)");
         addVector = new Vector3(0.5f, 0, 0);
-        speed = 1;
-        StartCoroutine(move());
+        GameObject.Find("Wave").GetComponent<WaveUI>().addWave(wave);
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
     {
         gameObject.transform.position = new Vector3(0, 0, 0);
     }
-    IEnumerator move()
+   public IEnumerator move()
     {
         List<GameObject> allChildrenObjects = new List<GameObject>();
         foreach (Transform child in this.gameObject.transform)
@@ -42,10 +44,14 @@ public class EnemyMovement : MonoBehaviour
         stopWhile:
         while (canDo)
         {
-            if (true)
+            allChildrenObjects = allChildrenObjects.Where(x => x != null).ToList();
+            if (allChildrenObjects.Count <= 0)
             {
                 Debug.Log("aaaaaaaaaaaaaaaa");
                 canDo = false;
+                wave++;
+                GameObject.Find("Wave").GetComponent<WaveUI>().addWave(wave);
+                Debug.Log(wave);
                 goto stopWhile;
             }
             if(firstX == null)
@@ -79,6 +85,7 @@ public class EnemyMovement : MonoBehaviour
             yield return new WaitForSeconds(0.5f / speed);
         }
         resetPos();
+        onReset(wave);
     }
     GameObject refreshFirst()
     {
