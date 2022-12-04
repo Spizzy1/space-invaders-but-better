@@ -5,11 +5,28 @@ using UnityEngine;
 public class enemyScript : MonoBehaviour
 {
     [SerializeField]
+    GameObject shootObject;
+    [SerializeField]
     enemy enemyCustomization;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (enemyCustomization.shoots)
+        {
+            StartCoroutine(shoot(shootObject, enemyCustomization.shootCooldown, enemyCustomization.shootSpeed));
+        }
+    }
+    IEnumerator shoot(GameObject pew, float cooldown, float speed)
+    {
+        while (this.gameObject != null)
+        {
+            GameObject pewInstance = Instantiate(pew);
+            pewInstance.transform.position = this.gameObject.transform.position;
+            pewInstance.transform.Rotate(new Vector3(0, 0, 180));
+            pewInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -speed);
+
+            yield return new WaitForSeconds(cooldown);
+        }
     }
 
     // Update is called once per frame
@@ -36,5 +53,9 @@ public class enemyScript : MonoBehaviour
         [SerializeField]
         public float HP;
         public float points;
+        public bool shoots;
+        public float shootCooldown;
+        public float shootSpeed;
+
     }
 }

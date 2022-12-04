@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class shoot : MonoBehaviour
 {
@@ -13,10 +14,12 @@ public class shoot : MonoBehaviour
     [SerializeField]
     float speed;
     public float damage;
+    [SerializeField]
+    int health;
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject.Find("Lives").GetComponent<livesUI>().updateHP(health);
     }
 
     // Update is called once per frame
@@ -30,6 +33,21 @@ public class shoot : MonoBehaviour
             bulletinstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
             onCooldown = true;
             StartCoroutine(cooldown(cooldownGeneral));
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "enemyBullet" )
+        {
+            Debug.Log("Hi, hi hi");
+            health--;
+            Destroy(collision.gameObject);
+            GameObject.Find("Lives").GetComponent<livesUI>().updateHP(health);
+
+            if (health <= 0)
+            {
+                SceneManager.LoadScene("GameOver");
+            }
         }
     }
     private IEnumerator cooldown(float cooldown)

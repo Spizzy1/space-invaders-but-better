@@ -16,10 +16,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     GameObject wallPositive;
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         addVector = new Vector3(0.5f, 0, 0);
         GameObject.Find("Wave").GetComponent<WaveUI>().addWave(wave);
+        yield return new WaitUntil(() => GameObject.Find("enemy manager").GetComponent<EnemyManager>() != null);
+        GameObject.Find("enemy manager").GetComponent<EnemyManager>().prepareWave(1);
+
     }
 
     // Update is called once per frame
@@ -96,7 +99,7 @@ public class EnemyMovement : MonoBehaviour
             yield return new WaitForSeconds(0.5f / speed);
         }
         resetPos();
-        onReset(wave);
+        GameObject.Find("enemy manager").GetComponent<EnemyManager>().prepareWave(wave);
     }
     GameObject refreshFirst()
     {
