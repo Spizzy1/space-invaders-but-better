@@ -8,6 +8,7 @@ public class AddPoints : MonoBehaviour
     public delegate void onLoad();
     public static event onLoad Pointsloaded;
     public float savePoints;
+    public float pointMultiplier = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,7 @@ public class AddPoints : MonoBehaviour
     }
     public void pointAdd(float points)
     {
-        savePoints += points;
+        savePoints += points * pointMultiplier;
         gameObject.GetComponent<TextMeshProUGUI>().text = $"Points:" + " " + savePoints;
     }
 }

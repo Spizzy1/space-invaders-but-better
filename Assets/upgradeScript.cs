@@ -1,15 +1,99 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using UnityEngine.UI;
+using TMPro;
 
 public class upgradeScript : MonoBehaviour
 {
-    Sprite[] spriteList = new Sprite[10];
+    [SerializeField]
+    List<Color> rarityColorList = new List<Color>();
     // Start is called before the first frame update
     void Start()
     {
-        AttackSpeed adadad = new AttackSpeed(upgradeGeneric.upgradeList.Speed, upgradeGeneric.rarity.common, "TEST TEST TEST");
-        Debug.Log(adadad.tooltip);
+        loadInList();
+
+    }
+    List<upgradeGeneric> loadInList()
+    {
+        GameObject.Find("Tooltip").GetComponent<TextMeshProUGUI>().text = " ";
+        List<upgradeGeneric> upgradeList = new List<upgradeGeneric>();
+        upgradeList.Add(new AttackSpeed(upgradeGeneric.rarity.common, "Decreases your attack cooldown by 10 percent"));
+        upgradeList.Add(new HealthIncrease(upgradeGeneric.rarity.common, "Increases your HP by 3"));
+        upgradeList.Add(new DamageIncrease(upgradeGeneric.rarity.common, "Increases your damage by 0.5"));
+        upgradeList.Add(new BIGDamg(upgradeGeneric.rarity.legendary, "Doubles your damage!"));
+        upgradeList.Add(new GlassCannon(upgradeGeneric.rarity.rare, "Makes any hit instakill you... but TRIPPLES damage"));
+        upgradeList.Add(new PointMultiLeg(upgradeGeneric.rarity.legendary, "Subsequent points are DOUBLED!"));
+        upgradeList.Add(new MythicTest(upgradeGeneric.rarity.MYTHIC, "BIG POINT"));
+        upgradeList.Add(new SansTest(upgradeGeneric.rarity.SANS, "No cooldown"));
+        upgradeList.Add(new unCommonDR(upgradeGeneric.rarity.uncommon, "Adds flat 0.2 damage reduction"));
+        upgradeList.Add(new halfDamage(upgradeGeneric.rarity.legendary, "Halfs all incoming damage"));
+        upgradeList.Add(new rareDamageMult(upgradeGeneric.rarity.rare, "Multiplies your damage by 20 percent"));
+
+        return upgradeList;
+    }
+    public void updateButtons(int[] weights)
+    {
+        List<upgradeGeneric> listOfUpgrades = loadInList();
+        foreach (Transform child in GameObject.Find("Buttons").transform)
+        {
+            int randomNr = Random.Range(1, weights.Sum());
+            Debug.Log(randomNr);
+            if (randomNr <= weights[0]) //Does the rarity sorting thing
+            {
+                List<upgradeGeneric> commonList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.common).ToList();
+                child.gameObject.GetComponent<Image>().color = rarityColorList[0];
+                loadEffect(commonList, child.gameObject);
+            }
+            else if((randomNr > weights[0]) && (randomNr <= weights.Take(2).Sum()))
+            {
+                List<upgradeGeneric> unCommonList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.uncommon).ToList();
+                child.gameObject.GetComponent<Image>().color = rarityColorList[1];
+                loadEffect(unCommonList, child.gameObject);
+            }
+            else if(randomNr > weights.Take(2).Sum() && randomNr <= weights.Take(3).Sum())
+            {
+                List<upgradeGeneric> rareList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.rare).ToList();
+                child.gameObject.GetComponent<Image>().color = rarityColorList[2];
+                loadEffect(rareList, child.gameObject);
+            }
+            else if(randomNr > weights.Take(3).Sum() && randomNr <= weights.Take(4).Sum())
+            {
+                List<upgradeGeneric> legendaryList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.legendary).ToList();
+                child.gameObject.GetComponent<Image>().color = rarityColorList[3];
+                loadEffect(legendaryList, child.gameObject);
+            }
+            else if(randomNr > weights.Take(4).Sum() && randomNr <= weights.Take(5).Sum())
+            {
+                List<upgradeGeneric> MYTHICList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.MYTHIC).ToList();
+                child.gameObject.GetComponent<Image>().color = rarityColorList[4];
+                loadEffect(MYTHICList, child.gameObject);
+
+            }
+            else if(randomNr > weights.Take(5).Sum())
+            {
+                List<upgradeGeneric> SANSList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.SANS).ToList();
+                child.gameObject.GetComponent<Image>().color = rarityColorList[5];
+                loadEffect(SANSList, child.gameObject);
+            }
+
+        }
+    }
+    void loadEffect(List<upgradeGeneric> filteredList, GameObject button)
+    {
+        int randomIndex = Random.Range(0, filteredList.Count);
+        button.GetComponent<Button>().onClick.RemoveAllListeners();
+        button.GetComponent<Button>().onClick.AddListener(start);
+        button.GetComponent<Button>().onClick.AddListener(filteredList[randomIndex].Effect);
+        Debug.Log(randomIndex);
+        Debug.Log(filteredList);
+        button.GetComponent<ButtonScript>().tooltip = filteredList[randomIndex].tooltip;
+    }
+    public void start()
+    {
+        GameObject.Find("enemy manager").GetComponent<EnemyManager>().prepareWave(GameObject.Find("EnemyGroup").GetComponent<EnemyMovement>().wave);
+        this.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -17,39 +101,147 @@ public class upgradeScript : MonoBehaviour
     {
         
     }
+    #region upgrades
     abstract class upgradeGeneric
     {
-        public enum upgradeList
+        protected GameObject player = GameObject.Find("player");
+        protected upgradeGeneric(rarity RARITY, string TOOLTIP)
         {
-            HP,
-            Speed,
-            Damage
-        }
-        protected upgradeGeneric(upgradeList TYPE, rarity RARITY, string TOOLTIP)
-        {
-            this.type = TYPE;
             this.rarityType = RARITY;
             this.tooltip = TOOLTIP;
+            this.isUsed = false;
         }
-        upgradeList type;
         public enum rarity
         {
-            common, 
+            common,
+            uncommon,
             rare,
-            epic
+            legendary,
+            MYTHIC,
+            SANS
         }
-        rarity rarityType;
+        public bool isUsed;
+        public rarity rarityType;
         public string tooltip;
         public abstract void Effect();
     }
     class AttackSpeed : upgradeGeneric
     {
-        public AttackSpeed(upgradeList attackType, rarity common, string tooltip) : base(attackType, common, tooltip)
+        public AttackSpeed(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
         {
         }
         public override void Effect()
         {
-            GameObject.Find("player").GetComponent<shoot>().cooldownGeneral *= 0.9f;
+            base.player.GetComponent<shoot>().cooldownGeneral *= 0.9f;
         }
     }
+    class HealthIncrease : upgradeGeneric
+    {
+        public HealthIncrease(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+        }
+        public override void Effect()
+        {
+            float updateHP = base.player.GetComponent<shoot>().health + 3;
+            base.player.GetComponent<shoot>().health += 3;
+
+            GameObject.Find("Lives").GetComponent<livesUI>().updateHP(updateHP);
+
+
+        }
+    }
+    class DamageIncrease : upgradeGeneric
+    {
+        public DamageIncrease(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+        }
+        public override void Effect()
+        {
+            base.player.GetComponent<shoot>().damage += 0.5f;
+        }
+    }
+    class BIGDamg : upgradeGeneric
+    {
+        public BIGDamg(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+        }
+        public override void Effect()
+        {
+            base.player.GetComponent<shoot>().damageMultiplier += 1;
+        }
+    }
+    class GlassCannon : upgradeGeneric
+    {
+        public GlassCannon(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+        }
+        public override void Effect()
+        {
+            base.player.GetComponent<shoot>().glassCanon = true;
+            base.player.GetComponent<shoot>().damageMultiplier += 2;
+        }
+    }
+    class PointMultiLeg : upgradeGeneric
+    {
+        public PointMultiLeg(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+        }
+        public override void Effect()
+        {
+            GameObject.Find("Points").GetComponent<AddPoints>().pointMultiplier += 1;
+        }
+    }
+    class MythicTest : upgradeGeneric
+    {
+        public MythicTest(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+
+        }
+        public override void Effect()
+        {
+            GameObject.Find("Points").GetComponent<AddPoints>().pointMultiplier += 10;
+        }
+    }
+    class SansTest : upgradeGeneric
+    {
+        public SansTest(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+
+        }
+        public override void Effect()
+        {
+            base.player.GetComponent<shoot>().cooldownGeneral = 0;
+        }
+    }
+    class rareDamageMult : upgradeGeneric
+    {
+        public rareDamageMult(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+        }
+        public override void Effect()
+        {
+            player.GetComponent<shoot>().damageMultiplier += 0.2f;
+        }
+    }
+    class halfDamage : upgradeGeneric
+    {
+        public halfDamage(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+        }
+        public override void Effect()
+        {
+            player.GetComponent<shoot>().hurtMultiplier *= 0.5f;
+        }
+    }
+    class unCommonDR : upgradeGeneric
+    {
+        public unCommonDR(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip)
+        {
+        }
+        public override void Effect()
+        {
+            player.GetComponent<shoot>().damageReduction += 0.2f;
+        }
+    }
+    #endregion
 }

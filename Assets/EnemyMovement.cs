@@ -101,9 +101,17 @@ public class EnemyMovement : MonoBehaviour
             yield return new WaitForSeconds(0.5f / speed);
         }
         resetPos();
-        if(wave % 2 == 0)
+        if(wave % 5 == 0)
         {
             referance.SetActive(true);
+            int[] weightArray = new int[] { 0, 0, 6890, 2500, 300, 10 };
+            referance.GetComponent<upgradeScript>().updateButtons(weightArray);
+        }
+        else if(wave % 2 == 0 && wave % 5 != 0)
+        {
+            referance.SetActive(true);
+            int[] weightArray = new int[] { 59000, 25000, 12900, 2308, 770, 22 };
+            referance.GetComponent<upgradeScript>().updateButtons(weightArray);
         }
         else
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class livesUI : MonoBehaviour
 {
@@ -16,8 +17,11 @@ public class livesUI : MonoBehaviour
     {
         
     }
-    public void updateHP(int HP)
+    public void updateHP(float HP)
     {
-        gameObject.GetComponent<TextMeshProUGUI>().text = "Lives:" + " " + HP;
+        string HPCast = HP.ToString();
+        int amountToTake = Mathf.Clamp(HPCast.Length, HPCast.Length, 4);
+        HPCast = HPCast.Substring(0, amountToTake);
+        gameObject.GetComponent<TextMeshProUGUI>().text = "Lives:" + " " + HPCast;
     }
 }
