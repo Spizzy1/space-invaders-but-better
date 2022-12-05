@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField]
+    GameObject referance;
     public delegate void resetEnemies(int wave);
     public static event resetEnemies onReset;
     public float speed = 1;
@@ -99,7 +101,14 @@ public class EnemyMovement : MonoBehaviour
             yield return new WaitForSeconds(0.5f / speed);
         }
         resetPos();
-        GameObject.Find("enemy manager").GetComponent<EnemyManager>().prepareWave(wave);
+        if(wave % 2 == 0)
+        {
+            referance.SetActive(true);
+        }
+        else
+        {
+            GameObject.Find("enemy manager").GetComponent<EnemyManager>().prepareWave(wave);
+        }
     }
     GameObject refreshFirst()
     {

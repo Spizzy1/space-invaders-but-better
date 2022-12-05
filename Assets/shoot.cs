@@ -8,7 +8,7 @@ public class shoot : MonoBehaviour
     [SerializeField]
     public GameObject bulletPrefab;
     [SerializeField]
-    float cooldownGeneral;
+    public float cooldownGeneral;
     [SerializeField]
     bool onCooldown = false;
     [SerializeField]
