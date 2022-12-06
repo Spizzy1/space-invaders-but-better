@@ -8,12 +8,32 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: shootObject
+      value: 
+      objectReference: {fileID: 8324551649609543656, guid: 0b29840e45fa8254190fffd3c97dd324, type: 3}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.HP
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.points
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: enemyCustomization.shoots
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: enemyCustomization.shootSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: enemyCustomization.shootCooldown
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095041, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_Name

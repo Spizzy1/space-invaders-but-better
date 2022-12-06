@@ -6,6 +6,8 @@ public class bulletData : MonoBehaviour
 {
     public float damage;
     public bool hasTouched;
+    public float pierce;
+    public List<int> touchedID = new List<int>();
     // Start is called before the first frame update
     void Start()
     {

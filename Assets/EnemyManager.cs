@@ -65,6 +65,7 @@ public class EnemyManager : MonoBehaviour
     }
     IEnumerator spawnEnemies(int wave, float cooldown)
     {
+        int saveID = 1;
         yield return new WaitForSeconds(cooldown);
         List<extraData> tempList = enemyWaveData.Where(x => x.wave <= wave && !x.isUsed).OrderByDescending(x => x.wave).ToList();
         int indexToTake = Mathf.Clamp(tempList.Count, tempList.Count, 10);
@@ -162,6 +163,8 @@ public class EnemyManager : MonoBehaviour
                                 grid[j + currentGrid].sizeX[i + spawnIndex] = true;
                             }
                         }
+                        spawnedEnemy.GetComponent<enemyScript>().ID = saveID;
+                        saveID++;
                         float yPosition = GameObject.Find("Spawn list").transform.position.y - ((selectedEnemy.slotY-1 + (currentGrid*2)) * locations[spawnIndex].transform.localScale.y/2);
                         float xPosition = ((locations[spawnIndex].transform.position.x - locations[spawnIndex].transform.localScale.x / 2) + (locations[spawnIndex].transform.localScale.x / 2) * selectedEnemy.slotX);
                         spawnedEnemy.transform.parent = GameObject.Find("EnemyGroup").transform;

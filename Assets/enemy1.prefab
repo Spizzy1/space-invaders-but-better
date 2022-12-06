@@ -124,6 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf55dfece8d7904ba9676c2757ff637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootObject: {fileID: 0}
   enemyCustomization:
-    HP: 1
+    HP: 5
     points: 100
+    shoots: 0
+    shootCooldown: 0
+    shootSpeed: 0

@@ -1,6 +1,7 @@
     using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class enemyScript : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class enemyScript : MonoBehaviour
     GameObject shootObject;
     [SerializeField]
     enemy enemyCustomization;
+    public float damage;
+    public int ID;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,7 @@ public class enemyScript : MonoBehaviour
             pewInstance.transform.position = this.gameObject.transform.position;
             pewInstance.transform.Rotate(new Vector3(0, 0, 180));
             pewInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -speed);
+            pewInstance.GetComponent<bulletData>().damage = damage;
 
             yield return new WaitForSeconds(cooldown);
         }
@@ -42,9 +46,17 @@ public class enemyScript : MonoBehaviour
     {
         if(collision.gameObject.tag == "bullet")
         {
-            Debug.Log("agg");
-            enemyCustomization.HP -= collision.GetComponent<bulletData>().damage;
-            Destroy(collision.gameObject);
+            if (!collision.gameObject.GetComponent<bulletData>().touchedID.Contains(ID))
+            {
+                collision.gameObject.GetComponent<bulletData>().touchedID.Add(ID);
+                Debug.Log("agg");
+                enemyCustomization.HP -= collision.GetComponent<bulletData>().damage;
+                if (collision.gameObject.GetComponent<bulletData>().pierce <= 0)
+                {
+                    Destroy(collision.gameObject);
+                }
+                collision.gameObject.GetComponent<bulletData>().pierce--;
+            }
         }
     }
     [System.Serializable, SerializeField]

@@ -30,7 +30,8 @@ public class upgradeScript : MonoBehaviour
         upgradeList.Add(new unCommonDR(upgradeGeneric.rarity.uncommon, "Adds flat 0.2 damage reduction"));
         upgradeList.Add(new halfDamage(upgradeGeneric.rarity.legendary, "Halfs all incoming damage"));
         upgradeList.Add(new rareDamageMult(upgradeGeneric.rarity.rare, "Multiplies your damage by 20 percent"));
-
+        upgradeList.Add(new PierceOne(upgradeGeneric.rarity.uncommon, "Makes your bullets pierce one more enemy"));
+        upgradeList.Add(new PierceInf(upgradeGeneric.rarity.MYTHIC, "Makes your bullets pierce infinitely"));
         return upgradeList;
     }
     public void updateButtons(int[] weights)
@@ -242,6 +243,16 @@ public class upgradeScript : MonoBehaviour
         {
             player.GetComponent<shoot>().damageReduction += 0.2f;
         }
+    }
+    class PierceOne : upgradeGeneric
+    {
+        public PierceOne(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip){}
+        public override void Effect(){ player.GetComponent<shoot>().pierce += 1;}
+    }
+    class PierceInf : upgradeGeneric
+    {
+        public PierceInf(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { player.GetComponent<shoot>().pierce += 10000000; }
     }
     #endregion
 }

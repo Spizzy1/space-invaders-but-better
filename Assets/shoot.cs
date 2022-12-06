@@ -20,6 +20,7 @@ public class shoot : MonoBehaviour
     public bool glassCanon;
     public float hurtMultiplier;
     public float damageReduction;
+    public int pierce;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +36,7 @@ public class shoot : MonoBehaviour
             bulletinstance.GetComponent<bulletData>().damage = damage*damageMultiplier;
             bulletinstance.transform.position = this.gameObject.transform.position;
             bulletinstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
+            bulletinstance.GetComponent<bulletData>().pierce = pierce;
             onCooldown = true;
             StartCoroutine(cooldown(cooldownGeneral));
         }
@@ -44,7 +46,7 @@ public class shoot : MonoBehaviour
         if(collision.gameObject.tag == "enemyBullet" )
         {
             Debug.Log("Hi, hi hi");
-            health -= Mathf.Clamp(1 * hurtMultiplier - 1*damageReduction, 0, 1 * hurtMultiplier - 1 * damageReduction);
+            health -= Mathf.Clamp(collision.gameObject.GetComponent<bulletData>().damage * hurtMultiplier - 1*damageReduction, 0, collision.gameObject.GetComponent<bulletData>().damage * hurtMultiplier - 1 * damageReduction);
             Destroy(collision.gameObject);
             GameObject.Find("Lives").GetComponent<livesUI>().updateHP(health);
 
