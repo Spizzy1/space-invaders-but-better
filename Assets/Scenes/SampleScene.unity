@@ -509,15 +509,14 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8324551649609543656, guid: a28da379678dd2a47b0594edcf70c92c, type: 3}
   cooldownGeneral: 0.3
   onCooldown: 0
-  speed: 5
+  speed: 1
   damage: 1
   health: 5
-  damageMultiplier: 1
   glassCanon: 0
   hurtMultiplier: 1
   damageReduction: 0
   pierce: 1
-  bulletMultiplier: 2
+  bulletMultiplier: 1
 --- !u!1 &69390002
 GameObject:
   m_ObjectHideFlags: 0
@@ -2889,7 +2888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &872602047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2966,9 +2965,9 @@ MonoBehaviour:
   - {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
   - {r: 0.44726378, g: 1, b: 0.15566039, a: 1}
   - {r: 0, g: 0.10700178, b: 1, a: 1}
-  - {r: 1, g: 0.96448624, b: 0, a: 1}
-  - {r: 0.8113208, g: 0, b: 0.08254794, a: 1}
-  - {r: 0.3331257, g: 0, b: 0.4245283, a: 1}
+  - {r: 0.5398429, g: 0.13679248, b: 1, a: 1}
+  - {r: 0.9632838, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0.9831753, a: 1}
 --- !u!1 &884184310
 GameObject:
   m_ObjectHideFlags: 0
@@ -3981,8 +3980,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281532166
-  m_fontColor: {r: 0.025157154, g: 1, b: 0.19803907, a: 1}
+    rgba: 4286185222
+  m_fontColor: {r: 0.02352941, g: 1, b: 0.47302067, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4061,6 +4060,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20918e3085046a947883bc4c89030354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveColorList:
+  - wave: 5
+    color: {r: 0.033430338, g: 1, b: 0, a: 1}
+  - wave: 10
+    color: {r: 0.9930656, g: 1, b: 0, a: 1}
+  - wave: 15
+    color: {r: 1, g: 0.5152212, b: 0, a: 1}
+  - wave: 20
+    color: {r: 1, g: 0, b: 0.020645618, a: 1}
+  - wave: 25
+    color: {r: 0.4811321, g: 0, b: 0.009434048, a: 1}
+  - wave: 30
+    color: {r: 0.33817998, g: 0, b: 0.83137256, a: 1}
 --- !u!1 &1545744237
 GameObject:
   m_ObjectHideFlags: 0
@@ -4281,7 +4293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savePoints: 0
-  pointMultiplier: 1
 --- !u!114 &1614657961
 MonoBehaviour:
   m_ObjectHideFlags: 0

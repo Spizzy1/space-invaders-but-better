@@ -16,7 +16,6 @@ public class shoot : MonoBehaviour
     public float damage;
     [SerializeField]
     public float health;
-    public float damageMultiplier = 1;
     public bool glassCanon;
     public float hurtMultiplier;
     public float damageReduction;
@@ -31,26 +30,36 @@ public class shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Space) && !onCooldown)
+        if (Input.GetKey(KeyCode.Space) && !onCooldown)
         {
-            float coefficients = 1 / bulletMultiplier;
-            for(int i = 0; i < bulletMultiplier; i++)
+            #region formulas
+            float cooldownFormula = cooldownGeneral * (Mathf.Pow(0.9f, upgradeScript.items["attackspeedIncrease"])) * ((upgradeScript.items["doubleShoot"] * 0.5f) + 1);
+            float damageFormula = (damage + (upgradeScript.items["damageUP"] * 0.5f)) * ((upgradeScript.items["doubleDamage"]) + 1) * (upgradeScript.items["glassCannon"] * 2 + 1) * (upgradeScript.items["smallDamageMulti"] * 0.2f + 1);
+            float bulletMultiplierFormula = bulletMultiplier + upgradeScript.items["doubleShoot"];
+            float pierceFormula = pierce + upgradeScript.items["pierceOne"] + (upgradeScript.items["pierceInf"] * 1000000);
+            float shotSpeedFormula = speed * (upgradeScript.items["shotIncrease"] * 0.5f + 1);
+            #endregion
+            float totalAngle = 4 * bulletMultiplierFormula;
+            float angle = -totalAngle / 2;
+            float anglePieces = totalAngle / (bulletMultiplierFormula - 1);
+            for (int i = 0; i < bulletMultiplierFormula; i++)
             {
                 GameObject bulletinstance = Instantiate(bulletPrefab);
-                bulletinstance.GetComponent<bulletData>().damage = damage * damageMultiplier;
-                if(bulletMultiplier > 1)
+                bulletinstance.GetComponent<bulletData>().damage = damageFormula;
+                bulletinstance.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.transform.localScale.y / 2);
+                if(bulletMultiplierFormula > 1)
                 {
-                    bulletinstance.transform.position = new Vector2(Mathf.Lerp(gameObject.transform.position.x - gameObject.transform.localScale.x / 2, gameObject.transform.position.x + gameObject.transform.localScale.x / 2, (coefficients*i)), this.gameObject.transform.position.y + gameObject.transform.localScale.y / 2);
+                    bulletinstance.transform.Rotate(new Vector3(0, 0, 90 + angle + anglePieces * i));
                 }
                 else
                 {
-                    bulletinstance.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.transform.localScale.y / 2);
+                    bulletinstance.transform.Rotate(new Vector3(0, 0, 90));
                 }
-                bulletinstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
-                bulletinstance.GetComponent<bulletData>().pierce = pierce;
+                bulletinstance.GetComponent<Rigidbody2D>().velocity = bulletinstance.transform.right * (4 * shotSpeedFormula);
+                bulletinstance.GetComponent<bulletData>().pierce = pierceFormula;
             }
             onCooldown = true;
-            StartCoroutine(cooldown(cooldownGeneral));
+            StartCoroutine(cooldown(cooldownFormula));
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -58,7 +67,8 @@ public class shoot : MonoBehaviour
         if(collision.gameObject.tag == "enemyBullet" )
         {
             Debug.Log("Hi, hi hi");
-            health -= Mathf.Clamp(collision.gameObject.GetComponent<bulletData>().damage * hurtMultiplier - 1*damageReduction, 0, collision.gameObject.GetComponent<bulletData>().damage * hurtMultiplier - 1 * damageReduction);
+            float damageFormula = (collision.gameObject.GetComponent<bulletData>().damage * Mathf.Pow(0.5f,upgradeScript.items["halfDamage"])) - upgradeScript.items["unCommonDR"] *0.2f;
+            health -= Mathf.Clamp(damageFormula, 0, damageFormula);
             Destroy(collision.gameObject);
             GameObject.Find("Lives").GetComponent<livesUI>().updateHP(health);
 

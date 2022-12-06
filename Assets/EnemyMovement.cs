@@ -104,13 +104,13 @@ public class EnemyMovement : MonoBehaviour
         if(wave % 10 == 0)
         {
             referance.SetActive(true);
-            int[] weightArray = new int[] { 0, 0, 6890, 2500, 300, 10 };
+            int[] weightArray = new int[] { 0, 0, 6000, 3000, 1500, 300 };
             referance.GetComponent<upgradeScript>().updateButtons(weightArray);
         }
         else if(wave % 2 == 0 && wave % 10 != 0)
         {
             referance.SetActive(true);
-            int[] weightArray = new int[] { 59000, 25000, 12900, 2308, 770, 22 };
+            int[] weightArray = new int[] { 55000, 25000, 12900, 6308, 2000, 22 };
             referance.GetComponent<upgradeScript>().updateButtons(weightArray);
         }
         else

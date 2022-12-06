@@ -19,6 +19,7 @@ public class playermovement : MonoBehaviour
 
     void Update()
     {
+        float speedFormula = movespeed * ((upgradeScript.items["moveIncrease"] * 0.3f)+1);
         movement.x = Input.GetAxisRaw("Horizontal");
         if (this.gameObject.transform.position.x > cordinate)
         {
@@ -31,11 +32,11 @@ public class playermovement : MonoBehaviour
         bool isShiftKeyDown = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
         if (isShiftKeyDown)
         {
-            rigidbody.MovePosition(rigidbody.position + movement * (movespeed / 2) * Time.fixedDeltaTime);
+            rigidbody.MovePosition(rigidbody.position + movement * (speedFormula / 2) * Time.fixedDeltaTime);
         }
         else
         {
-            rigidbody.MovePosition(rigidbody.position + movement * movespeed * Time.fixedDeltaTime);
+            rigidbody.MovePosition(rigidbody.position + movement * speedFormula * Time.fixedDeltaTime);
         }
     }
 

@@ -9,11 +9,14 @@ public class upgradeScript : MonoBehaviour
 {
     [SerializeField]
     List<Color> rarityColorList = new List<Color>();
+
+    public static Dictionary<string, int> items = new Dictionary<string, int>();
     // Start is called before the first frame update
     void Start()
     {
         loadInList();
-
+        loadItems();
+        gameObject.SetActive(false);
     }
     List<upgradeGeneric> loadInList()
     {
@@ -22,18 +25,39 @@ public class upgradeScript : MonoBehaviour
         upgradeList.Add(new AttackSpeed(upgradeGeneric.rarity.common, "Decreases your attack cooldown by 10 percent")); //Sets all the rarities and tooltips of all upgrades
         upgradeList.Add(new HealthIncrease(upgradeGeneric.rarity.common, "Increases your HP by 3"));
         upgradeList.Add(new DamageIncrease(upgradeGeneric.rarity.common, "Increases your damage by 0.5"));
-        upgradeList.Add(new BIGDamg(upgradeGeneric.rarity.legendary, "Doubles your damage!"));
-        upgradeList.Add(new GlassCannon(upgradeGeneric.rarity.rare, "Makes any hit instakill you... but TRIPPLES damage"));
-        upgradeList.Add(new PointMultiLeg(upgradeGeneric.rarity.legendary, "Subsequent points are DOUBLED!"));
-        upgradeList.Add(new MythicTest(upgradeGeneric.rarity.MYTHIC, "BIG POINT"));
+        upgradeList.Add(new BIGDamg(upgradeGeneric.rarity.MYTHIC, "Doubles your damage!"));
+        upgradeList.Add(new GlassCannon(upgradeGeneric.rarity.legendary, "Makes any hit instakill you... but TRIPPLES damage"));
+        upgradeList.Add(new PointMultiLeg(upgradeGeneric.rarity.legendary, "Subsequent points are increased!"));
+        upgradeList.Add(new MythicTest(upgradeGeneric.rarity.SANS, "BIG POINT"));
         upgradeList.Add(new SansTest(upgradeGeneric.rarity.SANS, "No cooldown"));
         upgradeList.Add(new unCommonDR(upgradeGeneric.rarity.uncommon, "Adds flat 0.2 damage reduction"));
-        upgradeList.Add(new halfDamage(upgradeGeneric.rarity.legendary, "Halfs all incoming damage"));
+        upgradeList.Add(new halfDamage(upgradeGeneric.rarity.MYTHIC, "Halfs all incoming damage"));
         upgradeList.Add(new rareDamageMult(upgradeGeneric.rarity.rare, "Multiplies your damage by 20 percent"));
-        upgradeList.Add(new PierceOne(upgradeGeneric.rarity.uncommon, "Makes your bullets pierce one more enemy"));
-        upgradeList.Add(new PierceInf(upgradeGeneric.rarity.MYTHIC, "Makes your bullets pierce infinitely"));
-        upgradeList.Add(new DoubleMovement(upgradeGeneric.rarity.legendary, "Doubles your movementspeed"));
+        upgradeList.Add(new PierceOne(upgradeGeneric.rarity.rare, "Makes your bullets pierce one more enemy"));
+        upgradeList.Add(new PierceInf(upgradeGeneric.rarity.SANS, "Makes your bullets pierce infinitely"));
+        upgradeList.Add(new DoubleMovement(upgradeGeneric.rarity.rare, "Increases your movementspeed"));
+        upgradeList.Add(new DoubleShot(upgradeGeneric.rarity.legendary, "Makes you shoot one extra shot... but severely lowers shooting speed"));
+        upgradeList.Add(new ShotSpeedFifty(upgradeGeneric.rarity.uncommon, "Makes your shots 50 percent faster"));
         return upgradeList;
+    }
+    void loadItems()
+    {
+        items.Clear();
+        items.Add("attackspeedIncrease", 0);
+        items.Add("damageUP", 0);
+        items.Add("doubleDamage", 0);
+        items.Add("glassCannon", 0);
+        items.Add("doublePoint", 0);
+        items.Add("bigPoint", 0);
+        items.Add("unCommonDR", 0);
+        items.Add("halfDamage", 0);
+        items.Add("smallDamageMulti", 0);
+        items.Add("pierceOne", 0);
+        items.Add("moveIncrease", 0);
+        items.Add("doubleShoot", 0);
+        items.Add("shotIncrease", 0);
+        items.Add("pierceInf", 0);
+
     }
     public void updateButtons(int[] weights)
     {
@@ -134,7 +158,7 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            base.player.GetComponent<shoot>().cooldownGeneral *= 0.9f;
+            items["attackspeedIncrease"] += 1;
         }
     }
     class HealthIncrease : upgradeGeneric
@@ -159,7 +183,7 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            base.player.GetComponent<shoot>().damage += 0.5f;
+            items["damageUP"] += 1;
         }
     }
     class BIGDamg : upgradeGeneric
@@ -169,7 +193,7 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            base.player.GetComponent<shoot>().damageMultiplier += 1;
+            items["doubleDamage"] += 1;
         }
     }
     class GlassCannon : upgradeGeneric
@@ -180,7 +204,7 @@ public class upgradeScript : MonoBehaviour
         public override void Effect()
         {
             base.player.GetComponent<shoot>().glassCanon = true;
-            base.player.GetComponent<shoot>().damageMultiplier += 2;
+            items["glassCannon"] += 1;
         }
     }
     class PointMultiLeg : upgradeGeneric
@@ -190,7 +214,7 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            GameObject.Find("Points").GetComponent<AddPoints>().pointMultiplier += 1;
+            items["doublePoint"] += 1;
         }
     }
     class MythicTest : upgradeGeneric
@@ -201,7 +225,7 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            GameObject.Find("Points").GetComponent<AddPoints>().pointMultiplier += 10;
+            items["bigPoint"] += 1;
         }
     }
     class SansTest : upgradeGeneric
@@ -222,7 +246,7 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            player.GetComponent<shoot>().damageMultiplier += 0.2f;
+            items["smallDamageMulti"] += 1;
         }
     }
     class halfDamage : upgradeGeneric
@@ -232,7 +256,7 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            player.GetComponent<shoot>().hurtMultiplier *= 0.5f;
+            items["pierceOne"] += 1;
         }
     }
     class unCommonDR : upgradeGeneric
@@ -242,23 +266,33 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            player.GetComponent<shoot>().damageReduction += 0.2f;
+            items["unCommonDR"] += 1;
         }
     }
     class PierceOne : upgradeGeneric
     {
         public PierceOne(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip){}
-        public override void Effect(){ player.GetComponent<shoot>().pierce += 1;}
+        public override void Effect() { items["pierceOne"] += 1;}
     }
     class PierceInf : upgradeGeneric
     {
         public PierceInf(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
-        public override void Effect() { player.GetComponent<shoot>().pierce += 10000000; }
+        public override void Effect() { items["pierceInf"] += 1; }
     }
     class DoubleMovement : upgradeGeneric
     {
         public DoubleMovement(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
-        public override void Effect() { player.GetComponent<playermovement>().movespeed *= 2; }
+        public override void Effect() { items["moveIncrease"] += 1; }
+    }
+    class DoubleShot : upgradeGeneric
+    {
+        public DoubleShot(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { items["doubleShoot"] += 1; }
+    }
+    class ShotSpeedFifty : upgradeGeneric
+    {
+        public ShotSpeedFifty(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { items["shotIncrease"] += 1; }
     }
     #endregion
 }
