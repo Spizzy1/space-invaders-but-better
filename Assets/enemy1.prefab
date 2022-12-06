@@ -131,3 +131,8 @@ MonoBehaviour:
     shoots: 0
     shootCooldown: 0
     shootSpeed: 0
+  damage: 0
+  ID: 0
+  angle: 0
+  bulletMultiplier: 0
+  pierceResistance: 3

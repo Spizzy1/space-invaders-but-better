@@ -12,6 +12,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8324551649609543656, guid: 0b29840e45fa8254190fffd3c97dd324, type: 3}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: pierceResistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.HP
       value: 2
       objectReference: {fileID: 0}

@@ -21,6 +21,7 @@ public class shoot : MonoBehaviour
     public float hurtMultiplier;
     public float damageReduction;
     public int pierce;
+    public int bulletMultiplier;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +33,14 @@ public class shoot : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space) && !onCooldown)
         {
+            /*float positionChunk = gameObject.transform.localScale / bulletMultiplier;
+            for(int i = 0; i < bulletMultiplier; i++)
+            {
+
+            }
+            */
             GameObject bulletinstance = Instantiate(bulletPrefab);
-            bulletinstance.GetComponent<bulletData>().damage = damage*damageMultiplier;
+            bulletinstance.GetComponent<bulletData>().damage = damage * damageMultiplier;
             bulletinstance.transform.position = this.gameObject.transform.position;
             bulletinstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
             bulletinstance.GetComponent<bulletData>().pierce = pierce;

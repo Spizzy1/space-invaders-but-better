@@ -11,11 +11,18 @@ public class enemyScript : MonoBehaviour
     enemy enemyCustomization;
     public float damage;
     public int ID;
+    public float angle;
+    public int bulletMultiplier;
+    [SerializeField]
+    public int pierceResistance;
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         if (enemyCustomization.shoots)
         {
+            float randomWait = Random.Range(0.1f, 1);
+            yield return new WaitForSeconds(randomWait);
+            Debug.Log(randomWait);
             StartCoroutine(shoot(shootObject, enemyCustomization.shootCooldown, enemyCustomization.shootSpeed));
         }
     }
@@ -23,11 +30,24 @@ public class enemyScript : MonoBehaviour
     {
         while (this.gameObject != null)
         {
-            GameObject pewInstance = Instantiate(pew);
-            pewInstance.transform.position = this.gameObject.transform.position;
-            pewInstance.transform.Rotate(new Vector3(0, 0, 180));
-            pewInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -speed);
-            pewInstance.GetComponent<bulletData>().damage = damage;
+            float saveAngle = -angle / 2;   
+            float anglePieces = angle / (bulletMultiplier-1);
+            for(int i = 0; i < bulletMultiplier; i++)
+            {
+                GameObject pewInstance = Instantiate(pew);
+                pewInstance.transform.position = this.gameObject.transform.position;
+                if(saveAngle != 0)
+                {
+                    pewInstance.transform.Rotate(new Vector3(0, 0, -90 + saveAngle + anglePieces * i));
+                }
+                else
+                {
+                    pewInstance.transform.Rotate(new Vector3(0, 0, -90));
+                }
+                pewInstance.GetComponent<Rigidbody2D>().velocity = pewInstance.transform.right * (speed*4);
+                pewInstance.GetComponent<bulletData>().damage = damage;
+            }
+
 
             yield return new WaitForSeconds(cooldown);
         }
@@ -51,11 +71,11 @@ public class enemyScript : MonoBehaviour
                 collision.gameObject.GetComponent<bulletData>().touchedID.Add(ID);
                 Debug.Log("agg");
                 enemyCustomization.HP -= collision.GetComponent<bulletData>().damage;
+                collision.gameObject.GetComponent<bulletData>().pierce -= pierceResistance;
                 if (collision.gameObject.GetComponent<bulletData>().pierce <= 0)
                 {
                     Destroy(collision.gameObject);
                 }
-                collision.gameObject.GetComponent<bulletData>().pierce--;
             }
         }
     }

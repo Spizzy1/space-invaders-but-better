@@ -31,6 +31,10 @@ public class DataManage : MonoBehaviour
         if(GameObject.Find("Points") != null)
         {
             points = GameObject.Find("Points").GetComponent<AddPoints>().savePoints;
+            if(PlayerPrefs.GetFloat("highScore") < points)
+            {
+                PlayerPrefs.SetFloat("highScore", points); 
+            }
         }
     }
     void resetPoints()

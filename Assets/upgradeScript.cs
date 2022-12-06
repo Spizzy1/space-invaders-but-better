@@ -19,7 +19,7 @@ public class upgradeScript : MonoBehaviour
     {
         GameObject.Find("Tooltip").GetComponent<TextMeshProUGUI>().text = " ";
         List<upgradeGeneric> upgradeList = new List<upgradeGeneric>();
-        upgradeList.Add(new AttackSpeed(upgradeGeneric.rarity.common, "Decreases your attack cooldown by 10 percent"));
+        upgradeList.Add(new AttackSpeed(upgradeGeneric.rarity.common, "Decreases your attack cooldown by 10 percent")); //Sets all the rarities and tooltips of all upgrades
         upgradeList.Add(new HealthIncrease(upgradeGeneric.rarity.common, "Increases your HP by 3"));
         upgradeList.Add(new DamageIncrease(upgradeGeneric.rarity.common, "Increases your damage by 0.5"));
         upgradeList.Add(new BIGDamg(upgradeGeneric.rarity.legendary, "Doubles your damage!"));
@@ -32,6 +32,7 @@ public class upgradeScript : MonoBehaviour
         upgradeList.Add(new rareDamageMult(upgradeGeneric.rarity.rare, "Multiplies your damage by 20 percent"));
         upgradeList.Add(new PierceOne(upgradeGeneric.rarity.uncommon, "Makes your bullets pierce one more enemy"));
         upgradeList.Add(new PierceInf(upgradeGeneric.rarity.MYTHIC, "Makes your bullets pierce infinitely"));
+        upgradeList.Add(new DoubleMovement(upgradeGeneric.rarity.legendary, "Doubles your movementspeed"));
         return upgradeList;
     }
     public void updateButtons(int[] weights)
@@ -41,10 +42,10 @@ public class upgradeScript : MonoBehaviour
         {
             int randomNr = Random.Range(1, weights.Sum());
             Debug.Log(randomNr);
-            if (randomNr <= weights[0]) //Does the rarity sorting thing
+            if (randomNr <= weights[0]) //creates the item loot-table
             {
                 List<upgradeGeneric> commonList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.common).ToList();
-                child.gameObject.GetComponent<Image>().color = rarityColorList[0];
+                child.gameObject.GetComponent<Image>().color = rarityColorList[0]; //changes color depending on rarity
                 loadEffect(commonList, child.gameObject);
             }
             else if((randomNr > weights[0]) && (randomNr <= weights.Take(2).Sum()))
@@ -253,6 +254,11 @@ public class upgradeScript : MonoBehaviour
     {
         public PierceInf(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
         public override void Effect() { player.GetComponent<shoot>().pierce += 10000000; }
+    }
+    class DoubleMovement : upgradeGeneric
+    {
+        public DoubleMovement(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { player.GetComponent<playermovement>().movespeed *= 2; }
     }
     #endregion
 }
