@@ -33,17 +33,22 @@ public class shoot : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space) && !onCooldown)
         {
-            /*float positionChunk = gameObject.transform.localScale / bulletMultiplier;
+            float coefficients = 1 / bulletMultiplier;
             for(int i = 0; i < bulletMultiplier; i++)
             {
-
+                GameObject bulletinstance = Instantiate(bulletPrefab);
+                bulletinstance.GetComponent<bulletData>().damage = damage * damageMultiplier;
+                if(bulletMultiplier > 1)
+                {
+                    bulletinstance.transform.position = new Vector2(Mathf.Lerp(gameObject.transform.position.x - gameObject.transform.localScale.x / 2, gameObject.transform.position.x + gameObject.transform.localScale.x / 2, (coefficients*i)), this.gameObject.transform.position.y + gameObject.transform.localScale.y / 2);
+                }
+                else
+                {
+                    bulletinstance.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.transform.localScale.y / 2);
+                }
+                bulletinstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
+                bulletinstance.GetComponent<bulletData>().pierce = pierce;
             }
-            */
-            GameObject bulletinstance = Instantiate(bulletPrefab);
-            bulletinstance.GetComponent<bulletData>().damage = damage * damageMultiplier;
-            bulletinstance.transform.position = this.gameObject.transform.position;
-            bulletinstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
-            bulletinstance.GetComponent<bulletData>().pierce = pierce;
             onCooldown = true;
             StartCoroutine(cooldown(cooldownGeneral));
         }

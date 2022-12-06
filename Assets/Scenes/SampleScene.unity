@@ -517,6 +517,7 @@ MonoBehaviour:
   hurtMultiplier: 1
   damageReduction: 0
   pierce: 1
+  bulletMultiplier: 2
 --- !u!1 &69390002
 GameObject:
   m_ObjectHideFlags: 0
