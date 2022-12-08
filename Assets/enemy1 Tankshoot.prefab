@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: angle
-      value: 40
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: damage
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: shootObject
@@ -21,19 +21,19 @@ PrefabInstance:
       objectReference: {fileID: 8324551649609543656, guid: 0b29840e45fa8254190fffd3c97dd324, type: 3}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: bulletMultiplier
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: pierceResistance
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.HP
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.points
-      value: 60
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.shoots
@@ -41,15 +41,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.shootSpeed
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.shootCooldown
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095041, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_Name
-      value: enemy1 Variant
+      value: enemy1 Tankshoot
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095041, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_TagString
@@ -61,11 +61,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095042, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_Color.g
-      value: 0.70400906
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095042, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.70339775
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095043, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_IsTrigger
@@ -77,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095045, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095045, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_LocalScale.y

@@ -68,7 +68,7 @@ public class EnemyManager : MonoBehaviour
         int saveID = 1;
         yield return new WaitForSeconds(cooldown);
         List<extraData> tempList = enemyWaveData.Where(x => x.wave <= wave && !x.isUsed).OrderByDescending(x => x.wave).ToList();
-        int indexToTake = Mathf.Clamp(tempList.Count, tempList.Count, 10);
+        int indexToTake = Mathf.Clamp(tempList.Count, tempList.Count, 4);
         Debug.Log(tempList);
         Debug.Log(indexToTake); 
         for(int i = 0; i < indexToTake; i++)
@@ -84,12 +84,13 @@ public class EnemyManager : MonoBehaviour
         Debug.Log(minCost);
         int currentGrid = 0;
         int attempts = 0;
-          while(savePoints >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 500 && currentGrid <= grid.Count-1)
+          while(savePoints >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 200 && currentGrid <= grid.Count-1)
         {
             enemyData selectedEnemy = null;
             while (selectedEnemy == null && savePoints >= minCost)
             {
-                int randomEnemy = Random.Range(0, enemyTypes.Count);
+                int startIndex = Mathf.Max(enemyTypes.Count - 4, 0);
+                int randomEnemy = Random.Range(startIndex, enemyTypes.Count);
                 if (enemyTypes[randomEnemy].cost <= savePoints)
                 {
                     selectedEnemy = enemyTypes[randomEnemy];

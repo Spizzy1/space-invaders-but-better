@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class upgradeScript : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class upgradeScript : MonoBehaviour
     {
         GameObject.Find("Tooltip").GetComponent<TextMeshProUGUI>().text = " ";
         List<upgradeGeneric> upgradeList = new List<upgradeGeneric>();
+        #region classItemList
         upgradeList.Add(new AttackSpeed(upgradeGeneric.rarity.common, "Decreases your attack cooldown by 10 percent")); //Sets all the rarities and tooltips of all upgrades
         upgradeList.Add(new HealthIncrease(upgradeGeneric.rarity.common, "Increases your HP by 3"));
         upgradeList.Add(new DamageIncrease(upgradeGeneric.rarity.common, "Increases your damage by 0.5"));
@@ -38,10 +40,15 @@ public class upgradeScript : MonoBehaviour
         upgradeList.Add(new DoubleMovement(upgradeGeneric.rarity.rare, "Increases your movementspeed"));
         upgradeList.Add(new DoubleShot(upgradeGeneric.rarity.legendary, "Makes you shoot one extra shot... but severely lowers shooting speed"));
         upgradeList.Add(new ShotSpeedFifty(upgradeGeneric.rarity.uncommon, "Makes your shots 50 percent faster"));
+        upgradeList.Add(new HolyMantle(upgradeGeneric.rarity.MYTHIC, "Gives you a rechargable shield, subsequent stacks lower cooldown"));
+        upgradeList.Add(new JustKillsYou(upgradeGeneric.rarity.SANS, "Legit just ends your run lmao"));
+        upgradeList.Add(new EnemyMoveDebuff(upgradeGeneric.rarity.uncommon, "Slows down enemy movement"));
+        #endregion
         return upgradeList;
     }
     void loadItems()
     {
+        #region itemKeyList
         items.Clear();
         items.Add("attackspeedIncrease", 0);
         items.Add("damageUP", 0);
@@ -57,7 +64,10 @@ public class upgradeScript : MonoBehaviour
         items.Add("doubleShoot", 0);
         items.Add("shotIncrease", 0);
         items.Add("pierceInf", 0);
-
+        items.Add("HolyMantle", 0);
+        items.Add("JustKillsYou", 0);
+        items.Add("EnemyMoveDebuff", 0);
+        #endregion
     }
     public void updateButtons(int[] weights)
     {
@@ -70,48 +80,49 @@ public class upgradeScript : MonoBehaviour
             {
                 List<upgradeGeneric> commonList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.common).ToList();
                 child.gameObject.GetComponent<Image>().color = rarityColorList[0]; //changes color depending on rarity
-                loadEffect(commonList, child.gameObject);
+                loadEffect(commonList, child.gameObject, ref listOfUpgrades);
             }
             else if((randomNr > weights[0]) && (randomNr <= weights.Take(2).Sum()))
             {
                 List<upgradeGeneric> unCommonList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.uncommon).ToList();
                 child.gameObject.GetComponent<Image>().color = rarityColorList[1];
-                loadEffect(unCommonList, child.gameObject);
+                loadEffect(unCommonList, child.gameObject, ref listOfUpgrades);
             }
             else if(randomNr > weights.Take(2).Sum() && randomNr <= weights.Take(3).Sum())
             {
                 List<upgradeGeneric> rareList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.rare).ToList();
                 child.gameObject.GetComponent<Image>().color = rarityColorList[2];
-                loadEffect(rareList, child.gameObject);
+                loadEffect(rareList, child.gameObject, ref listOfUpgrades);
             }
             else if(randomNr > weights.Take(3).Sum() && randomNr <= weights.Take(4).Sum())
             {
                 List<upgradeGeneric> legendaryList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.legendary).ToList();
                 child.gameObject.GetComponent<Image>().color = rarityColorList[3];
-                loadEffect(legendaryList, child.gameObject);
+                loadEffect(legendaryList, child.gameObject, ref listOfUpgrades);
             }
             else if(randomNr > weights.Take(4).Sum() && randomNr <= weights.Take(5).Sum())
             {
                 List<upgradeGeneric> MYTHICList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.MYTHIC).ToList();
                 child.gameObject.GetComponent<Image>().color = rarityColorList[4];
-                loadEffect(MYTHICList, child.gameObject);
+                loadEffect(MYTHICList, child.gameObject, ref listOfUpgrades);
 
             }
             else if(randomNr > weights.Take(5).Sum())
             {
                 List<upgradeGeneric> SANSList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.SANS).ToList();
                 child.gameObject.GetComponent<Image>().color = rarityColorList[5];
-                loadEffect(SANSList, child.gameObject);
+                loadEffect(SANSList, child.gameObject, ref listOfUpgrades);
             }
 
         }
     }
-    void loadEffect(List<upgradeGeneric> filteredList, GameObject button)
+    void loadEffect(List<upgradeGeneric> filteredList, GameObject button, ref List<upgradeGeneric> mainList)
     {
         int randomIndex = Random.Range(0, filteredList.Count);
         button.GetComponent<Button>().onClick.RemoveAllListeners();
         button.GetComponent<Button>().onClick.AddListener(start);
         button.GetComponent<Button>().onClick.AddListener(filteredList[randomIndex].Effect);
+        mainList.Remove(filteredList[randomIndex]);
         Debug.Log(randomIndex);
         Debug.Log(filteredList);
         button.GetComponent<ButtonScript>().tooltip = filteredList[randomIndex].tooltip;
@@ -293,6 +304,21 @@ public class upgradeScript : MonoBehaviour
     {
         public ShotSpeedFifty(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
         public override void Effect() { items["shotIncrease"] += 1; }
+    }
+    class HolyMantle : upgradeGeneric
+    {
+        public HolyMantle(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { items["HolyMantle"] += 1; }
+    }
+    class JustKillsYou : upgradeGeneric
+    {
+        public JustKillsYou(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { SceneManager.LoadScene("GameOver"); }
+    }
+    class EnemyMoveDebuff : upgradeGeneric
+    {
+        public EnemyMoveDebuff(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { items["EnemyMoveDebuff"] += 1; }
     }
     #endregion
 }

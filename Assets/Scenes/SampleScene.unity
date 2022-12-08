@@ -517,6 +517,8 @@ MonoBehaviour:
   damageReduction: 0
   pierce: 1
   bulletMultiplier: 1
+  shieldColor: {r: 0.3339622, g: 0.9463296, b: 1, a: 1}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &69390002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,19 +1617,37 @@ MonoBehaviour:
     slotX: 2
     prefab: {fileID: 1000240847066095041, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
     cost: 200
-    wave: 3
+    wave: 5
     isUsed: 0
   - slotY: 1
     slotX: 1
     prefab: {fileID: 6718006252761087668, guid: fd21247108f99e2429ca57d35fd89ca4, type: 3}
-    cost: 60
-    wave: 2
+    cost: 120
+    wave: 4
     isUsed: 0
   - slotY: 1
     slotX: 1
     prefab: {fileID: 5390326418398953632, guid: 64c51a32a8c1c6e4f8c3b0f663b5c89d, type: 3}
-    cost: 20
+    cost: 50
     wave: 1
+    isUsed: 0
+  - slotY: 1
+    slotX: 2
+    prefab: {fileID: 6718006252761087668, guid: fc95d503b594fad4bbbda2f77187c48f, type: 3}
+    cost: 400
+    wave: 6
+    isUsed: 0
+  - slotY: 1
+    slotX: 1
+    prefab: {fileID: 1000240847066095041, guid: 601dc8ba4394b39489394610522e163b, type: 3}
+    cost: 100
+    wave: 2
+    isUsed: 0
+  - slotY: 1
+    slotX: 1
+    prefab: {fileID: 1000240847066095041, guid: bab9a9b4998fb1a4c823be3dee13ac25, type: 3}
+    cost: 70
+    wave: 5
     isUsed: 0
   enemyTypes: []
   points: 800

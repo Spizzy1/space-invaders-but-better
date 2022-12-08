@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1000240847066095043}
   - component: {fileID: 1000240847066095040}
   m_Layer: 0
-  m_Name: enemy1
+  m_Name: enemy1 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1000240847066095041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 6.05, z: 0}
-  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.96666515, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -124,15 +124,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf55dfece8d7904ba9676c2757ff637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootObject: {fileID: 0}
+  shootObject: {fileID: 8324551649609543656, guid: 0b29840e45fa8254190fffd3c97dd324, type: 3}
   enemyCustomization:
-    HP: 5
-    points: 150
-    shoots: 0
-    shootCooldown: 0
-    shootSpeed: 0
-  damage: 0
+    HP: 2
+    points: 40
+    shoots: 1
+    shootCooldown: 3
+    shootSpeed: 1
+  damage: 1
   ID: 0
   angle: 0
-  bulletMultiplier: 0
-  pierceResistance: 3
+  bulletMultiplier: 1
+  pierceResistance: 1

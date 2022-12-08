@@ -98,16 +98,16 @@ public class EnemyMovement : MonoBehaviour
             {
                 canDo = false;
             }
-            yield return new WaitForSeconds(0.5f / speed);
+            yield return new WaitForSeconds((0.5f / speed)*(upgradeScript.items["EnemyMoveDebuff"] * 1.2f + 1));
         }
         resetPos();
-        if(wave % 10 == 0)
+        if(wave % 5 == 0)
         {
             referance.SetActive(true);
             int[] weightArray = new int[] { 0, 0, 6000, 3000, 1500, 300 };
             referance.GetComponent<upgradeScript>().updateButtons(weightArray);
         }
-        else if(wave % 2 == 0 && wave % 10 != 0)
+        else if(wave % 2 == 0 && wave % 5 != 0)
         {
             referance.SetActive(true);
             int[] weightArray = new int[] { 55000, 25000, 12900, 6308, 2000, 22 };

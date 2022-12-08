@@ -21,6 +21,11 @@ public class shoot : MonoBehaviour
     public float damageReduction;
     public int pierce;
     public int bulletMultiplier;
+    bool holyMantle;
+    [SerializeField]
+    Color shieldColor;
+    [SerializeField]
+    Color defaultColor;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +66,14 @@ public class shoot : MonoBehaviour
             onCooldown = true;
             StartCoroutine(cooldown(cooldownFormula));
         }
+        if(holyMantle == false && upgradeScript.items["HolyMantle"] > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = shieldColor;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = defaultColor;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -68,7 +81,15 @@ public class shoot : MonoBehaviour
         {
             Debug.Log("Hi, hi hi");
             float damageFormula = (collision.gameObject.GetComponent<bulletData>().damage * Mathf.Pow(0.5f,upgradeScript.items["halfDamage"])) - upgradeScript.items["unCommonDR"] *0.2f;
-            health -= Mathf.Clamp(damageFormula, 0, damageFormula);
+            if(holyMantle == false && upgradeScript.items["HolyMantle"] > 0)
+            {
+                holyMantle = true;
+                StartCoroutine(HolyMantle());
+            }
+            else
+            {
+                health -= Mathf.Clamp(damageFormula, 0, damageFormula);
+            }
             Destroy(collision.gameObject);
             GameObject.Find("Lives").GetComponent<livesUI>().updateHP(health);
 
@@ -77,6 +98,11 @@ public class shoot : MonoBehaviour
                 SceneManager.LoadScene("GameOver");
             }
         }
+    }
+    IEnumerator HolyMantle()
+    {
+        yield return new WaitForSeconds(5 * Mathf.Pow(0.5f, upgradeScript.items["HolyMantle"] - 1));
+        holyMantle = false;
     }
     private IEnumerator cooldown(float cooldown)
     {
