@@ -41,6 +41,6 @@ public class DataManage : MonoBehaviour
     {
         GameObject points = GameObject.Find("Points");
         points.GetComponent<AddPoints>().savePoints = 0;
-        points.GetComponent<TextMeshProUGUI>().text = "Points:" + " " + 0;
+        points.GetComponent<TextMeshProUGUI>().text = "Points" + " " + 0;
     }
 }

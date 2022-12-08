@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8324551649609543656, guid: a28da379678dd2a47b0594edcf70c92c, type: 3}
-  cooldownGeneral: 0.3
+  cooldownGeneral: 0.5
   onCooldown: 0
   speed: 1
   damage: 1
@@ -763,8 +763,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 89.119, y: -116.18}
-  m_SizeDelta: {x: 178.2385, y: 33.9766}
+  m_AnchoredPosition: {x: 80.224, y: -81.881}
+  m_SizeDelta: {x: 160.4472, y: 25.0809}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &101275126
 MonoBehaviour:
@@ -778,6 +778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a85c808746b0748ae51cf65d846b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GlassColor: {r: 0, g: 0.36591837, b: 0.4811321, a: 0.84313726}
 --- !u!114 &101275127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,7 +828,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51
+  m_fontSize: 38.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -863,7 +864,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -12.130922, w: 0}
+  m_margin: {x: 0, y: 0, z: -0.037048344, w: -0.34182122}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3968,7 +3969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 89.119, y: -82.2}
+  m_AnchoredPosition: {x: 89.119, y: -52.352}
   m_SizeDelta: {x: 178.2385, y: 33.9766}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1517528335
@@ -4297,8 +4298,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 153.85, y: -27.536}
-  m_SizeDelta: {x: 307.6924, y: 98.7512}
+  m_AnchoredPosition: {x: 400, y: -17.681702}
+  m_SizeDelta: {x: 800, y: 35.3634}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1614657960
 MonoBehaviour:
@@ -4333,7 +4334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Points: 0
+  m_text: 'Points 0
 
 '
   m_isRightToLeft: 0
@@ -4362,12 +4363,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80.35
+  m_fontSize: 50
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 10000
+  m_fontSizeMax: 50
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512

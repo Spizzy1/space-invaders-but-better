@@ -104,7 +104,7 @@ public class EnemyMovement : MonoBehaviour
         if(wave % 5 == 0)
         {
             referance.SetActive(true);
-            int[] weightArray = new int[] { 0, 0, 6000, 3000, 1500, 300 };
+            int[] weightArray = new int[] { 0, 0, 6000, 3000, 1500, 22 };
             referance.GetComponent<upgradeScript>().updateButtons(weightArray);
         }
         else if(wave % 2 == 0 && wave % 5 != 0)
@@ -116,6 +116,15 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             GameObject.Find("enemy manager").GetComponent<EnemyManager>().prepareWave(wave);
+        }
+        DestroyBullets();
+
+    }
+    void DestroyBullets()
+    {
+        foreach(GameObject bullet in GameObject.FindGameObjectsWithTag("enemyBullet"))
+        {
+            Destroy(bullet);
         }
     }
     GameObject refreshFirst()

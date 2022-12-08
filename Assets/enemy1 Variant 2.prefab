@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.HP
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.points

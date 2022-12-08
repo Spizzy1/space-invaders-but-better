@@ -22,6 +22,6 @@ public class AddPoints : MonoBehaviour
     public void pointAdd(float points)
     {
         savePoints += points * ((upgradeScript.items["doublePoint"] * 0.5f + 1) * ((upgradeScript.items["bigPoint"] * 10)+1));
-        gameObject.GetComponent<TextMeshProUGUI>().text = $"Points:" + " " + savePoints;
+        gameObject.GetComponent<TextMeshProUGUI>().text = $"Points" + " " + savePoints;
     }
 }

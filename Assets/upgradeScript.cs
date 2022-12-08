@@ -27,9 +27,9 @@ public class upgradeScript : MonoBehaviour
         upgradeList.Add(new AttackSpeed(upgradeGeneric.rarity.common, "Decreases your attack cooldown by 10 percent")); //Sets all the rarities and tooltips of all upgrades
         upgradeList.Add(new HealthIncrease(upgradeGeneric.rarity.common, "Increases your HP by 3"));
         upgradeList.Add(new DamageIncrease(upgradeGeneric.rarity.common, "Increases your damage by 0.5"));
-        upgradeList.Add(new BIGDamg(upgradeGeneric.rarity.MYTHIC, "Doubles your damage!"));
+        upgradeList.Add(new BIGDamg(upgradeGeneric.rarity.MYTHIC, "Doubles your damage"));
         upgradeList.Add(new GlassCannon(upgradeGeneric.rarity.legendary, "Makes any hit instakill you... but TRIPPLES damage"));
-        upgradeList.Add(new PointMultiLeg(upgradeGeneric.rarity.legendary, "Subsequent points are increased!"));
+        upgradeList.Add(new PointMultiLeg(upgradeGeneric.rarity.legendary, "Subsequent points are increased"));
         upgradeList.Add(new MythicTest(upgradeGeneric.rarity.SANS, "BIG POINT"));
         upgradeList.Add(new SansTest(upgradeGeneric.rarity.SANS, "No cooldown"));
         upgradeList.Add(new unCommonDR(upgradeGeneric.rarity.uncommon, "Adds flat 0.2 damage reduction"));
@@ -43,6 +43,7 @@ public class upgradeScript : MonoBehaviour
         upgradeList.Add(new HolyMantle(upgradeGeneric.rarity.MYTHIC, "Gives you a rechargable shield, subsequent stacks lower cooldown"));
         upgradeList.Add(new JustKillsYou(upgradeGeneric.rarity.SANS, "Legit just ends your run lmao"));
         upgradeList.Add(new EnemyMoveDebuff(upgradeGeneric.rarity.uncommon, "Slows down enemy movement"));
+        upgradeList.Add(new Clover(upgradeGeneric.rarity.MYTHIC, "Better items"));
         #endregion
         return upgradeList;
     }
@@ -67,6 +68,7 @@ public class upgradeScript : MonoBehaviour
         items.Add("HolyMantle", 0);
         items.Add("JustKillsYou", 0);
         items.Add("EnemyMoveDebuff", 0);
+        items.Add("soper luck", 0);
         #endregion
     }
     public void updateButtons(int[] weights)
@@ -74,7 +76,15 @@ public class upgradeScript : MonoBehaviour
         List<upgradeGeneric> listOfUpgrades = loadInList();
         foreach (Transform child in GameObject.Find("Buttons").transform)
         {
-            int randomNr = Random.Range(1, weights.Sum());
+            int randomNr = 0;
+            for (int i = 0; i < 1+items["soper luck"]; i++)
+            {
+                int tempNr = Random.Range(1, weights.Sum());
+                if(tempNr > randomNr)
+                {
+                    randomNr = tempNr;
+                }
+            }
             Debug.Log(randomNr);
             if (randomNr <= weights[0]) //creates the item loot-table
             {
@@ -182,7 +192,7 @@ public class upgradeScript : MonoBehaviour
             float updateHP = base.player.GetComponent<shoot>().health + 3;
             base.player.GetComponent<shoot>().health += 3;
 
-            GameObject.Find("Lives").GetComponent<livesUI>().updateHP(updateHP);
+            GameObject.Find("Lives").GetComponent<livesUI>().updateHP(updateHP, items["glassCannon"] > 0);
 
 
         }
@@ -215,6 +225,7 @@ public class upgradeScript : MonoBehaviour
         public override void Effect()
         {
             base.player.GetComponent<shoot>().glassCanon = true;
+            GameObject.Find("Lives").GetComponent<livesUI>().GlassHP();
             items["glassCannon"] += 1;
         }
     }
@@ -319,6 +330,11 @@ public class upgradeScript : MonoBehaviour
     {
         public EnemyMoveDebuff(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
         public override void Effect() { items["EnemyMoveDebuff"] += 1; }
+    }
+    class Clover : upgradeGeneric
+    {
+        public Clover(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { items["soper luck"] += 1; }
     }
     #endregion
 }

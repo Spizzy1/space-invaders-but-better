@@ -29,7 +29,7 @@ public class shoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.Find("Lives").GetComponent<livesUI>().updateHP(health);
+        GameObject.Find("Lives").GetComponent<livesUI>().updateHP(health, glassCanon);
     }
 
     // Update is called once per frame
@@ -89,14 +89,14 @@ public class shoot : MonoBehaviour
             else
             {
                 health -= Mathf.Clamp(damageFormula, 0, damageFormula);
+                if (health <= 0 || glassCanon)
+                {
+                    SceneManager.LoadScene("GameOver");
+                }
             }
             Destroy(collision.gameObject);
-            GameObject.Find("Lives").GetComponent<livesUI>().updateHP(health);
+            GameObject.Find("Lives").GetComponent<livesUI>().updateHP(health, glassCanon);
 
-            if (health <= 0 || glassCanon)
-            {
-                SceneManager.LoadScene("GameOver");
-            }
         }
     }
     IEnumerator HolyMantle()

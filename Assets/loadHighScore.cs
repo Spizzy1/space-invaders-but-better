@@ -8,7 +8,7 @@ public class loadHighScore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<TextMeshProUGUI>().text = "High Score:" + PlayerPrefs.GetFloat("highScore");
+        gameObject.GetComponent<TextMeshProUGUI>().text = "High Score " + PlayerPrefs.GetFloat("highScore");
     }
 
     // Update is called once per frame

@@ -84,16 +84,21 @@ public class EnemyManager : MonoBehaviour
         Debug.Log(minCost);
         int currentGrid = 0;
         int attempts = 0;
-          while(savePoints >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 200 && currentGrid <= grid.Count-1)
-        {
+          while(savePoints >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 200 && currentGrid <= grid.Count-1)  
+          {
             enemyData selectedEnemy = null;
+            List<enemyData> trySpawn = new List<enemyData>(enemyTypes);
             while (selectedEnemy == null && savePoints >= minCost)
             {
-                int startIndex = Mathf.Max(enemyTypes.Count - 4, 0);
-                int randomEnemy = Random.Range(startIndex, enemyTypes.Count);
-                if (enemyTypes[randomEnemy].cost <= savePoints)
+                int startIndex = Mathf.Max(trySpawn.Count - 4, 0);
+                int randomEnemy = Random.Range(startIndex, trySpawn.Count);
+                if (trySpawn[randomEnemy].cost <= savePoints)
                 {
-                    selectedEnemy = enemyTypes[randomEnemy];
+                    selectedEnemy = trySpawn[randomEnemy];
+                }
+                else
+                {
+                    trySpawn.RemoveAt(randomEnemy);
                 }
             }
             if (selectedEnemy != null)
@@ -186,8 +191,15 @@ public class EnemyManager : MonoBehaviour
             }
             attempts++;
         }
-        GameObject.Find("EnemyGroup").transform.position = new Vector3(1.6f, GameObject.Find("EnemyGroup").transform.position.y, GameObject.Find("EnemyGroup").transform.position.z);
-        StartCoroutine(GameObject.Find("EnemyGroup").GetComponent<EnemyMovement>().move());
+        if (attempts > 200)
+        {
+            StartCoroutine(spawnEnemies(wave, cooldown));
+        }
+        else
+        {
+            GameObject.Find("EnemyGroup").transform.position = new Vector3(1.6f, GameObject.Find("EnemyGroup").transform.position.y, GameObject.Find("EnemyGroup").transform.position.z);
+            StartCoroutine(GameObject.Find("EnemyGroup").GetComponent<EnemyMovement>().move());
+        }
     }
     [System.Serializable]
     public class enemyData
