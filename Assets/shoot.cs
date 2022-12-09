@@ -21,6 +21,7 @@ public class shoot : MonoBehaviour
     public float damageReduction;
     public int pierce;
     public int bulletMultiplier;
+    public bool firstHit;
     bool holyMantle;
     [SerializeField]
     Color shieldColor;

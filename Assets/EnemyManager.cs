@@ -56,6 +56,7 @@ public class EnemyManager : MonoBehaviour
                 grid[i].sizeX[j] = false; 
             }
         }
+        GameObject.Find("player").GetComponent<shoot>().firstHit = false;
         GameObject.Find("EnemyGroup").GetComponent<EnemyMovement>().speed += GameObject.Find("EnemyGroup").GetComponent<EnemyMovement>().speed*0.05f;
         float waveFloat = (float)wave;
         points = Mathf.Clamp(Mathf.Abs(points * (1+0.2f)), 500, 100000000);

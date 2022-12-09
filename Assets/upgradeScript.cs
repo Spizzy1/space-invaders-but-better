@@ -44,6 +44,8 @@ public class upgradeScript : MonoBehaviour
         upgradeList.Add(new JustKillsYou(upgradeGeneric.rarity.SANS, "Legit just ends your run lmao"));
         upgradeList.Add(new EnemyMoveDebuff(upgradeGeneric.rarity.uncommon, "Slows down enemy movement"));
         upgradeList.Add(new Clover(upgradeGeneric.rarity.MYTHIC, "Better items"));
+        upgradeList.Add(new ShatterBullets(upgradeGeneric.rarity.legendary, "Makes your bullets shatter into weaker bullets on impact"));
+        upgradeList.Add(new OneHitHalf(upgradeGeneric.rarity.common, "First hit per wave has decreased damage"));
         #endregion
         return upgradeList;
     }
@@ -69,6 +71,8 @@ public class upgradeScript : MonoBehaviour
         items.Add("JustKillsYou", 0);
         items.Add("EnemyMoveDebuff", 0);
         items.Add("soper luck", 0);
+        items.Add("shatterBullet", 0);
+        items.Add("oneHithalf", 0);
         #endregion
     }
     public void updateButtons(int[] weights)
@@ -335,6 +339,16 @@ public class upgradeScript : MonoBehaviour
     {
         public Clover(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
         public override void Effect() { items["soper luck"] += 1; }
+    }
+    class ShatterBullets : upgradeGeneric
+    {
+        public ShatterBullets(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { items["shatterBullet"] += 1; }
+    }
+    class OneHitHalf : upgradeGeneric
+    {
+        public OneHitHalf(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { items["oneHithalf"] += 1; }
     }
     #endregion
 }

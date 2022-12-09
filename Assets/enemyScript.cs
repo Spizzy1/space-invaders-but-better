@@ -72,6 +72,7 @@ public class enemyScript : MonoBehaviour
                 Debug.Log("agg");
                 enemyCustomization.HP -= collision.GetComponent<bulletData>().damage;
                 collision.gameObject.GetComponent<bulletData>().pierce -= pierceResistance;
+                collision.gameObject.GetComponent<bulletData>().BurstCheck();
                 if (collision.gameObject.GetComponent<bulletData>().pierce <= 0)
                 {
                     Destroy(collision.gameObject);
