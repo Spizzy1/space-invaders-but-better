@@ -56,7 +56,11 @@ public class EnemyManager : MonoBehaviour
                 grid[i].sizeX[j] = false; 
             }
         }
-        GameObject.Find("player").GetComponent<shoot>().firstHit = false;
+        if (GameObject.Find("player").GetComponent<Shoot>().firstHit && upgradeScript.items["damageStore"] > 0)
+        {
+            GameObject.Find("player").GetComponent<Shoot>().storedDamage *= 0.5f;
+        }
+        GameObject.Find("player").GetComponent<Shoot>().firstHit = true;
         GameObject.Find("EnemyGroup").GetComponent<EnemyMovement>().speed += GameObject.Find("EnemyGroup").GetComponent<EnemyMovement>().speed*0.05f;
         float waveFloat = (float)wave;
         points = Mathf.Clamp(Mathf.Abs(points * (1+0.2f)), 500, 100000000);
@@ -175,6 +179,9 @@ public class EnemyManager : MonoBehaviour
                         float yPosition = GameObject.Find("Spawn list").transform.position.y - ((selectedEnemy.slotY-1 + (currentGrid*2)) * locations[spawnIndex].transform.localScale.y/2);
                         float xPosition = ((locations[spawnIndex].transform.position.x - locations[spawnIndex].transform.localScale.x / 2) + (locations[spawnIndex].transform.localScale.x / 2) * selectedEnemy.slotX);
                         spawnedEnemy.transform.parent = GameObject.Find("EnemyGroup").transform;
+                        spawnedEnemy.GetComponent<enemyScript>().damage *= Mathf.Pow(1.1f, wave-1);
+                        spawnedEnemy.GetComponent<enemyScript>().enemyCustomization.HP *= Mathf.Pow(1.1f, wave-1);
+                        spawnedEnemy.GetComponent<enemyScript>().enemyCustomization.shootCooldown = Mathf.Max(spawnedEnemy.GetComponent<enemyScript>().enemyCustomization.shootCooldown * Mathf.Pow(0.95f, wave - 1), spawnedEnemy.GetComponent<enemyScript>().enemyCustomization.shootCooldown/2);
                         spawnedEnemy.transform.position = new Vector3(xPosition, yPosition, -2);
 
                     }

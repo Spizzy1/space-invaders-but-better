@@ -9,7 +9,10 @@ using UnityEngine.SceneManagement;
 public class upgradeScript : MonoBehaviour
 {
     [SerializeField]
+    GameObject rerollReferance;
+    [SerializeField]
     List<Color> rarityColorList = new List<Color>();
+    int rerolls;
 
     public static Dictionary<string, int> items = new Dictionary<string, int>();
     // Start is called before the first frame update
@@ -46,6 +49,8 @@ public class upgradeScript : MonoBehaviour
         upgradeList.Add(new Clover(upgradeGeneric.rarity.MYTHIC, "Better items"));
         upgradeList.Add(new ShatterBullets(upgradeGeneric.rarity.legendary, "Makes your bullets shatter into weaker bullets on impact"));
         upgradeList.Add(new OneHitHalf(upgradeGeneric.rarity.common, "First hit per wave has decreased damage"));
+        upgradeList.Add(new Reroll(upgradeGeneric.rarity.legendary, "Gives you a reroll for each instance of this item you have"));
+        upgradeList.Add(new StoreDamage(upgradeGeneric.rarity.rare, "Hold X to enable a shield that stores damage which grows exponentially, having too much damage stored will kill you BUT no-hitting a wave will half the damage stored, more stacks increase the damage able to be stored"));
         #endregion
         return upgradeList;
     }
@@ -67,16 +72,25 @@ public class upgradeScript : MonoBehaviour
         items.Add("doubleShoot", 0);
         items.Add("shotIncrease", 0);
         items.Add("pierceInf", 0);
-        items.Add("HolyMantle", 0);
+        items.Add("HolyMantle", 1);
         items.Add("JustKillsYou", 0);
         items.Add("EnemyMoveDebuff", 0);
         items.Add("soper luck", 0);
         items.Add("shatterBullet", 0);
         items.Add("oneHithalf", 0);
+        items.Add("reroll", 0);
+        items.Add("damageStore", 1);
         #endregion
     }
-    public void updateButtons(int[] weights)
+    public void updateButtons(int[] weights, bool isReroll = false)
     {
+        if (!isReroll && items["reroll"] > 0)
+        {
+            rerollReferance.SetActive(true);
+            rerolls = items["reroll"];
+            rerollReferance.GetComponent<Button>().onClick.RemoveAllListeners();
+            rerollReferance.GetComponent<Button>().onClick.AddListener(() => { updateButtons(weights, true); checkInactive(); });
+        }
         List<upgradeGeneric> listOfUpgrades = loadInList();
         foreach (Transform child in GameObject.Find("Buttons").transform)
         {
@@ -128,6 +142,14 @@ public class upgradeScript : MonoBehaviour
                 loadEffect(SANSList, child.gameObject, ref listOfUpgrades);
             }
 
+        }
+        void checkInactive()
+        {
+            rerolls--;
+            if (rerolls <= 0)
+            {
+                rerollReferance.SetActive(false);
+            }
         }
     }
     void loadEffect(List<upgradeGeneric> filteredList, GameObject button, ref List<upgradeGeneric> mainList)
@@ -193,8 +215,8 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            float updateHP = base.player.GetComponent<shoot>().health + 3;
-            base.player.GetComponent<shoot>().health += 3;
+            float updateHP = base.player.GetComponent<Shoot>().health + 3;
+            base.player.GetComponent<Shoot>().health += 3;
 
             GameObject.Find("Lives").GetComponent<livesUI>().updateHP(updateHP, items["glassCannon"] > 0);
 
@@ -228,7 +250,7 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            base.player.GetComponent<shoot>().glassCanon = true;
+            base.player.GetComponent<Shoot>().glassCanon = true;
             GameObject.Find("Lives").GetComponent<livesUI>().GlassHP();
             items["glassCannon"] += 1;
         }
@@ -262,7 +284,7 @@ public class upgradeScript : MonoBehaviour
         }
         public override void Effect()
         {
-            base.player.GetComponent<shoot>().cooldownGeneral = 0;
+            base.player.GetComponent<Shoot>().cooldownGeneral = 0;
         }
     }
     class rareDamageMult : upgradeGeneric
@@ -349,6 +371,16 @@ public class upgradeScript : MonoBehaviour
     {
         public OneHitHalf(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
         public override void Effect() { items["oneHithalf"] += 1; }
+    }
+    class Reroll : upgradeGeneric
+    {
+        public Reroll(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { items["reroll"] += 1; }
+    }
+    class StoreDamage : upgradeGeneric
+    {
+        public StoreDamage(rarity rarityConfig, string tooltip) : base(rarityConfig, tooltip) { }
+        public override void Effect() { items["damageStore"] += 1; }
     }
     #endregion
 }

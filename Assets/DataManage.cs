@@ -24,23 +24,13 @@ public class DataManage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            SceneManager.LoadScene("GameOver");
-        }
-        if(GameObject.Find("Points") != null)
-        {
-            points = GameObject.Find("Points").GetComponent<AddPoints>().savePoints;
-            if(PlayerPrefs.GetFloat("highScore") < points)
-            {
-                PlayerPrefs.SetFloat("highScore", points); 
-            }
-        }
+
     }
     void resetPoints()
     {
-        GameObject points = GameObject.Find("Points");
-        points.GetComponent<AddPoints>().savePoints = 0;
-        points.GetComponent<TextMeshProUGUI>().text = "Points" + " " + 0;
+        points = 0;
+        GameObject pointObject = GameObject.Find("Points");
+        pointObject.GetComponent<AddPoints>().savePoints = 0;
+        pointObject.GetComponent<TextMeshProUGUI>().text = "Points" + " " + 0;
     }
 }

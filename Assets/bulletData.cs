@@ -27,6 +27,7 @@ public class bulletData : MonoBehaviour
                 shatterBullet.GetComponent<bulletData>().isShatter = true;
                 shatterBullet.GetComponent<bulletData>().damage = damage * (upgradeScript.items["shatterBullet"] * 0.2f);
                 shatterBullet.GetComponent<Rigidbody2D>().velocity = shatterBullet.transform.right * 4;
+                shatterBullet.GetComponent<bulletData>().pierce = 1;
             }
         }
     }

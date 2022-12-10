@@ -8,7 +8,7 @@ public class enemyScript : MonoBehaviour
     [SerializeField]
     GameObject shootObject;
     [SerializeField]
-    enemy enemyCustomization;
+    public enemy enemyCustomization;
     public float damage;
     public int ID;
     public float angle;
@@ -77,11 +77,13 @@ public class enemyScript : MonoBehaviour
                 {
                     Destroy(collision.gameObject);
                 }
+                
+                StartCoroutine(Shoot.Flash(1, gameObject));
             }
         }
     }
     [System.Serializable, SerializeField]
-    class enemy
+    public class enemy
     {
         [SerializeField]
         public float HP;
