@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1000240847066095041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 6.05, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.5663458, b: 0, a: 1}
+  m_Sprite: {fileID: -110791857, guid: 8c9200556cf21e8498e2f76829b995d8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -126,6 +126,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootObject: {fileID: 8324551649609543656, guid: 0b29840e45fa8254190fffd3c97dd324, type: 3}
   enemyCustomization:
+    SpriteArray:
+    - {fileID: -110791857, guid: 8c9200556cf21e8498e2f76829b995d8, type: 3}
+    - {fileID: -1818101189, guid: 8c9200556cf21e8498e2f76829b995d8, type: 3}
     HP: 5
     points: 30
     shoots: 0

@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1000240847066095041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 6.05, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.96666515, g: 1, b: 0, a: 1}
+  m_Sprite: {fileID: -1281813470, guid: 696331c7139305342a97d78fb324db6e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -103,7 +103,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 16, y: 16}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -126,6 +126,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootObject: {fileID: 8324551649609543656, guid: 0b29840e45fa8254190fffd3c97dd324, type: 3}
   enemyCustomization:
+    SpriteArray:
+    - {fileID: -1281813470, guid: 696331c7139305342a97d78fb324db6e, type: 3}
+    - {fileID: 968313383, guid: 696331c7139305342a97d78fb324db6e, type: 3}
     HP: 2
     points: 40
     shoots: 1

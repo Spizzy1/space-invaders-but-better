@@ -85,6 +85,7 @@ public class enemyScript : MonoBehaviour
     [System.Serializable, SerializeField]
     public class enemy
     {
+        public Sprite[] SpriteArray;
         [SerializeField]
         public float HP;
         public float points;

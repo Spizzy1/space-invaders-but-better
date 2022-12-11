@@ -27,30 +27,30 @@ public class upgradeScript : MonoBehaviour
         GameObject.Find("Tooltip").GetComponent<TextMeshProUGUI>().text = " ";
         List<upgradeGeneric> upgradeList = new List<upgradeGeneric>();
         #region classItemList
-        upgradeList.Add(new AttackSpeed(upgradeGeneric.rarity.common, "Decreases your attack cooldown by 10 percent")); //Sets all the rarities and tooltips of all upgrades
+        upgradeList.Add(new AttackSpeed(upgradeGeneric.rarity.common, "Increases attack speed")); //Sets all the rarities and tooltips of all upgrades
         upgradeList.Add(new HealthIncrease(upgradeGeneric.rarity.common, "Increases your HP by 3"));
-        upgradeList.Add(new DamageIncrease(upgradeGeneric.rarity.common, "Increases your damage by 0.5"));
+        upgradeList.Add(new DamageIncrease(upgradeGeneric.rarity.common, "Flat damage increase"));
         upgradeList.Add(new BIGDamg(upgradeGeneric.rarity.MYTHIC, "Doubles your damage"));
-        upgradeList.Add(new GlassCannon(upgradeGeneric.rarity.legendary, "Makes any hit instakill you... but TRIPPLES damage"));
-        upgradeList.Add(new PointMultiLeg(upgradeGeneric.rarity.legendary, "Subsequent points are increased"));
+        upgradeList.Add(new GlassCannon(upgradeGeneric.rarity.legendary, "Makes any hit instakill you... but doubles damage"));
+        upgradeList.Add(new PointMultiLeg(upgradeGeneric.rarity.legendary, "Increases point gain"));
         upgradeList.Add(new MythicTest(upgradeGeneric.rarity.SANS, "BIG POINT"));
         upgradeList.Add(new SansTest(upgradeGeneric.rarity.SANS, "No cooldown"));
-        upgradeList.Add(new unCommonDR(upgradeGeneric.rarity.uncommon, "Adds flat 0.2 damage reduction"));
-        upgradeList.Add(new halfDamage(upgradeGeneric.rarity.MYTHIC, "Halfs all incoming damage"));
-        upgradeList.Add(new rareDamageMult(upgradeGeneric.rarity.rare, "Multiplies your damage by 20 percent"));
+        upgradeList.Add(new unCommonDR(upgradeGeneric.rarity.uncommon, "Gives flat damage reduction"));
+        upgradeList.Add(new halfDamage(upgradeGeneric.rarity.MYTHIC, "Halfs all damage"));
+        upgradeList.Add(new rareDamageMult(upgradeGeneric.rarity.rare, "20 percnet more damage"));
         upgradeList.Add(new PierceOne(upgradeGeneric.rarity.rare, "Makes your bullets pierce one more enemy"));
         upgradeList.Add(new PierceInf(upgradeGeneric.rarity.SANS, "Makes your bullets pierce infinitely"));
         upgradeList.Add(new DoubleMovement(upgradeGeneric.rarity.rare, "Increases your movementspeed"));
-        upgradeList.Add(new DoubleShot(upgradeGeneric.rarity.legendary, "Makes you shoot one extra shot... but severely lowers shooting speed"));
-        upgradeList.Add(new ShotSpeedFifty(upgradeGeneric.rarity.uncommon, "Makes your shots 50 percent faster"));
-        upgradeList.Add(new HolyMantle(upgradeGeneric.rarity.MYTHIC, "Gives you a rechargable shield, subsequent stacks lower cooldown"));
+        upgradeList.Add(new DoubleShot(upgradeGeneric.rarity.legendary, "Makes you shoot more shots but lowers attack speed"));
+        upgradeList.Add(new ShotSpeedFifty(upgradeGeneric.rarity.uncommon, "Increases shot speed"));
+        upgradeList.Add(new HolyMantle(upgradeGeneric.rarity.MYTHIC, "Grants you a rechargable shield"));
         upgradeList.Add(new JustKillsYou(upgradeGeneric.rarity.SANS, "Legit just ends your run lmao"));
         upgradeList.Add(new EnemyMoveDebuff(upgradeGeneric.rarity.uncommon, "Slows down enemy movement"));
         upgradeList.Add(new Clover(upgradeGeneric.rarity.MYTHIC, "Better items"));
-        upgradeList.Add(new ShatterBullets(upgradeGeneric.rarity.legendary, "Makes your bullets shatter into weaker bullets on impact"));
+        upgradeList.Add(new ShatterBullets(upgradeGeneric.rarity.legendary, "Your bullets shatter into weaker bullets"));
         upgradeList.Add(new OneHitHalf(upgradeGeneric.rarity.common, "First hit per wave has decreased damage"));
-        upgradeList.Add(new Reroll(upgradeGeneric.rarity.legendary, "Gives you a reroll for each instance of this item you have"));
-        upgradeList.Add(new StoreDamage(upgradeGeneric.rarity.rare, "Hold X to enable a shield that stores damage which grows exponentially, having too much damage stored will kill you BUT no-hitting a wave will half the damage stored, more stacks increase the damage able to be stored"));
+        upgradeList.Add(new Reroll(upgradeGeneric.rarity.legendary, "Lets you reroll items"));
+        upgradeList.Add(new StoreDamage(upgradeGeneric.rarity.rare, "Hold X to enable a damage storing shield"));
         #endregion
         return upgradeList;
     }

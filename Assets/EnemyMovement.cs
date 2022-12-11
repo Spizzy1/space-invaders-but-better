@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class EnemyMovement : MonoBehaviour
         addVector = new Vector3(0.5f, 0, 0);
         bool canDo = true;
         bool allGone = false;
-    stopWhile:
+        stopWhile:
         while (canDo)
         {
             allChildrenObjects = allChildrenObjects.Where(x => x != null).ToList();
@@ -97,6 +98,11 @@ public class EnemyMovement : MonoBehaviour
             else
             {
                 canDo = false;
+            }
+            foreach(Transform child in gameObject.transform)
+            {
+                Sprite[] spriteArraySave = child.gameObject.GetComponent<enemyScript>().enemyCustomization.SpriteArray;
+                child.gameObject.GetComponent<SpriteRenderer>().sprite = spriteArraySave[(Array.IndexOf(spriteArraySave, child.gameObject.GetComponent<SpriteRenderer>().sprite) + 1) % 2]; //This is why C++ is optimal.
             }
             yield return new WaitForSeconds((0.5f / speed)*(upgradeScript.items["EnemyMoveDebuff"] * 1.2f + 1));
         }

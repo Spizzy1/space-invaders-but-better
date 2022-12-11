@@ -50,7 +50,7 @@ public class Shoot : MonoBehaviour
         {
             #region formulas
             float cooldownFormula = cooldownGeneral * (Mathf.Pow(0.9f, upgradeScript.items["attackspeedIncrease"])) * ((upgradeScript.items["doubleShoot"] * 0.5f) + 1);
-            float damageFormula = (damage + (upgradeScript.items["damageUP"] * 0.5f)) * ((upgradeScript.items["doubleDamage"]) + 1) * (upgradeScript.items["glassCannon"] * 2 + 1) * (upgradeScript.items["smallDamageMulti"] * 0.2f + 1);
+            float damageFormula = (damage + (upgradeScript.items["damageUP"] * 0.5f)) * ((upgradeScript.items["doubleDamage"]) + 1) * (upgradeScript.items["glassCannon"] + 1) * (upgradeScript.items["smallDamageMulti"] * 0.2f + 1);
             float bulletMultiplierFormula = bulletMultiplier + upgradeScript.items["doubleShoot"];
             float pierceFormula = pierce + upgradeScript.items["pierceOne"] + (upgradeScript.items["pierceInf"] * 1000000);
             float shotSpeedFormula = speed * (upgradeScript.items["shotIncrease"] * 0.5f + 1);
