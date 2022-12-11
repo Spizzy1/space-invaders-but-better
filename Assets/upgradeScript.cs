@@ -72,14 +72,14 @@ public class upgradeScript : MonoBehaviour
         items.Add("doubleShoot", 0);
         items.Add("shotIncrease", 0);
         items.Add("pierceInf", 0);
-        items.Add("HolyMantle", 1);
+        items.Add("HolyMantle", 0);
         items.Add("JustKillsYou", 0);
         items.Add("EnemyMoveDebuff", 0);
         items.Add("soper luck", 0);
         items.Add("shatterBullet", 0);
         items.Add("oneHithalf", 0);
         items.Add("reroll", 0);
-        items.Add("damageStore", 1);
+        items.Add("damageStore", 0);
         #endregion
     }
     public void updateButtons(int[] weights, bool isReroll = false)

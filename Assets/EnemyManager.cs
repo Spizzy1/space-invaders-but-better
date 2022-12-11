@@ -179,9 +179,8 @@ public class EnemyManager : MonoBehaviour
                         float yPosition = GameObject.Find("Spawn list").transform.position.y - ((selectedEnemy.slotY-1 + (currentGrid*2)) * locations[spawnIndex].transform.localScale.y/2);
                         float xPosition = ((locations[spawnIndex].transform.position.x - locations[spawnIndex].transform.localScale.x / 2) + (locations[spawnIndex].transform.localScale.x / 2) * selectedEnemy.slotX);
                         spawnedEnemy.transform.parent = GameObject.Find("EnemyGroup").transform;
-                        spawnedEnemy.GetComponent<enemyScript>().damage *= Mathf.Pow(1.1f, wave-1);
-                        spawnedEnemy.GetComponent<enemyScript>().enemyCustomization.HP *= Mathf.Pow(1.1f, wave-1);
-                        spawnedEnemy.GetComponent<enemyScript>().enemyCustomization.shootCooldown = Mathf.Max(spawnedEnemy.GetComponent<enemyScript>().enemyCustomization.shootCooldown * Mathf.Pow(0.95f, wave - 1), spawnedEnemy.GetComponent<enemyScript>().enemyCustomization.shootCooldown/2);
+                        spawnedEnemy.GetComponent<enemyScript>().damage *= Mathf.Pow(Mathf.Max((DataManage.difficulty-1)*0.13f + 0.94f, 1), wave-1);
+                        spawnedEnemy.GetComponent<enemyScript>().enemyCustomization.HP *= Mathf.Pow(Mathf.Max((DataManage.difficulty - 1) * 0.13f + 0.94f, 1), wave - 1);
                         spawnedEnemy.transform.position = new Vector3(xPosition, yPosition, -2);
 
                     }

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class DataManage : MonoBehaviour
 {
     public float points = 0;
+    public static int difficulty = 0;
     // Start is called before the first frame update
     void Start()
     {
