@@ -29,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.HP
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.points
@@ -42,6 +42,22 @@ PrefabInstance:
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.shootSpeed
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: enemyCustomization.bulletColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: enemyCustomization.bulletColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: enemyCustomization.bulletColor.g
+      value: 0.504717
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
+      propertyPath: enemyCustomization.bulletColor.r
+      value: 0.8185055
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095040, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: enemyCustomization.shootCooldown
@@ -133,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095045, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1000240847066095045, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
       propertyPath: m_LocalRotation.w

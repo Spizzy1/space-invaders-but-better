@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000240847066095041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.05, z: 0}
+  m_LocalPosition: {x: 0, y: 6.05, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,7 +103,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16, y: 16}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -129,11 +129,12 @@ MonoBehaviour:
     SpriteArray:
     - {fileID: -1281813470, guid: 696331c7139305342a97d78fb324db6e, type: 3}
     - {fileID: 968313383, guid: 696331c7139305342a97d78fb324db6e, type: 3}
-    HP: 2
+    HP: 1
     points: 40
     shoots: 1
     shootCooldown: 3
     shootSpeed: 1
+    bulletColor: {r: 1, g: 0.96124655, b: 0.25, a: 1}
   damage: 1
   ID: 0
   angle: 0

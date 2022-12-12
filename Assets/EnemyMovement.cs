@@ -104,7 +104,7 @@ public class EnemyMovement : MonoBehaviour
                 Sprite[] spriteArraySave = child.gameObject.GetComponent<enemyScript>().enemyCustomization.SpriteArray;
                 child.gameObject.GetComponent<SpriteRenderer>().sprite = spriteArraySave[(Array.IndexOf(spriteArraySave, child.gameObject.GetComponent<SpriteRenderer>().sprite) + 1) % 2]; //This is why C++ is optimal.
             }
-            yield return new WaitForSeconds((0.5f / speed)*(upgradeScript.items["EnemyMoveDebuff"] * 1.2f + 1));
+            yield return new WaitForSeconds((0.5f / speed)*(upgradeScript.items["EnemyMoveDebuff"] * 0.2f + 1));
         }
         resetPos();
         if(wave % Mathf.Clamp(5*(DataManage.difficulty-1),5, 10) == 0)

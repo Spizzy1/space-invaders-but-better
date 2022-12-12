@@ -46,6 +46,7 @@ public class enemyScript : MonoBehaviour
                 }
                 pewInstance.GetComponent<Rigidbody2D>().velocity = pewInstance.transform.right * (speed*4);
                 pewInstance.GetComponent<bulletData>().damage = damage;
+                pewInstance.GetComponent<SpriteRenderer>().color = enemyCustomization.bulletColor;
             }
 
 
@@ -92,6 +93,7 @@ public class enemyScript : MonoBehaviour
         public bool shoots;
         public float shootCooldown;
         public float shootSpeed;
+        public Color bulletColor;
 
     }
 }

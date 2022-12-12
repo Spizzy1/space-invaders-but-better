@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000240847066095041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.05, z: 0}
+  m_LocalPosition: {x: 0, y: 6.05, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129,11 +129,12 @@ MonoBehaviour:
     SpriteArray:
     - {fileID: -110791857, guid: 8c9200556cf21e8498e2f76829b995d8, type: 3}
     - {fileID: -1818101189, guid: 8c9200556cf21e8498e2f76829b995d8, type: 3}
-    HP: 5
+    HP: 4
     points: 30
     shoots: 0
     shootCooldown: 3
     shootSpeed: 1
+    bulletColor: {r: 0, g: 0, b: 0, a: 0}
   damage: 1
   ID: 0
   angle: 0
