@@ -106,14 +106,15 @@ public class EnemyMovement : MonoBehaviour
             }
             yield return new WaitForSeconds((0.5f / speed)*(upgradeScript.items["EnemyMoveDebuff"] * 0.2f + 1));
         }
+        GameObject dataObject = GameObject.Find("Data Manager");
         resetPos();
-        if(wave % Mathf.Clamp(5*(DataManage.difficulty-1),5, 10) == 0)
+        if(wave % dataObject.GetComponent<DataManage>().difficultyList[DataManage.difficulty].rareItemWave == 0)
         {
             referance.SetActive(true);
             int[] weightArray = new int[] { 0, 0, 6000, 3000, 1500, 22 };
             referance.GetComponent<upgradeScript>().updateButtons(weightArray);
         }
-        else if(wave % 2 == 0 && wave % Mathf.Clamp(5 * (DataManage.difficulty - 1), 5, 10) != 0)
+        else if(wave % 2 == 0 && wave % dataObject.GetComponent<DataManage>().difficultyList[DataManage.difficulty].rareItemWave != 0)
         {
             referance.SetActive(true);
             int[] weightArray = new int[] { 55000, 25000, 12900, 6308, 2000, 22 };

@@ -275,6 +275,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 0
+  difficultyList:
+  - HPScale: 1
+    DamageScale: 1
+    rareItemWave: 1
+  - HPScale: 1.05
+    DamageScale: 1.05
+    rareItemWave: 3
+  - HPScale: 1.1
+    DamageScale: 1.1
+    rareItemWave: 5
+  - HPScale: 0
+    DamageScale: 0
+    rareItemWave: 0
 --- !u!4 &481803482
 Transform:
   m_ObjectHideFlags: 0

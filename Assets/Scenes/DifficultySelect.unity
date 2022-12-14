@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fcb682011ecd0346a107a1053c668a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 2
+  difficulty: 1
   scene: SampleScene
   description: Medium enemies. Many items.
 --- !u!1 &946402946
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fcb682011ecd0346a107a1053c668a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 3
+  difficulty: 2
   scene: SampleScene
   description: Hard enemies, less items
 --- !u!1 &1052805438
@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fcb682011ecd0346a107a1053c668a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 1
+  difficulty: 0
   scene: SampleScene
   description: Easy enemies, many items
 --- !u!1 &2145254859

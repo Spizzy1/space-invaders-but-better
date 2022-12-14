@@ -8,6 +8,8 @@ public class DataManage : MonoBehaviour
 {
     public float points = 0;
     public static int difficulty = 0;
+    [SerializeField]
+    public List<Difficulty> difficultyList = new List<Difficulty>();
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,10 @@ public class DataManage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(points > PlayerPrefs.GetFloat("highScore"))
+        {
+            PlayerPrefs.SetFloat("highScore", points);
+        }
     }
     void resetPoints()
     {
@@ -33,5 +38,12 @@ public class DataManage : MonoBehaviour
         GameObject pointObject = GameObject.Find("Points");
         pointObject.GetComponent<AddPoints>().savePoints = 0;
         pointObject.GetComponent<TextMeshProUGUI>().text = "Points" + " " + 0;
+    }
+    [System.Serializable]
+    public class Difficulty
+    {
+        public float HPScale;
+        public float DamageScale;
+        public int rareItemWave;
     }
 }
