@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Utils;
 
 public class upgradeScript : MonoBehaviour
 {
@@ -94,53 +95,28 @@ public class upgradeScript : MonoBehaviour
         List<upgradeGeneric> listOfUpgrades = loadInList();
         foreach (Transform child in GameObject.Find("Buttons").transform)
         {
-            int randomNr = 0;
+            float randomNr = 0;
             for (int i = 0; i < 1+items["soper luck"]; i++)
             {
-                int tempNr = Random.Range(1, weights.Sum());
+                float tempNr = Random.Range(0f, 1f);
                 if(tempNr > randomNr)
                 {
                     randomNr = tempNr;
                 }
             }
-            Debug.Log(randomNr);
-            if (randomNr <= weights[0]) //creates the item loot-table
-            {
-                List<upgradeGeneric> commonList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.common).ToList();
-                child.gameObject.GetComponent<Image>().color = rarityColorList[0]; //changes color depending on rarity
-                loadEffect(commonList, child.gameObject, ref listOfUpgrades);
-            }
-            else if((randomNr > weights[0]) && (randomNr <= weights.Take(2).Sum()))
-            {
-                List<upgradeGeneric> unCommonList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.uncommon).ToList();
-                child.gameObject.GetComponent<Image>().color = rarityColorList[1];
-                loadEffect(unCommonList, child.gameObject, ref listOfUpgrades);
-            }
-            else if(randomNr > weights.Take(2).Sum() && randomNr <= weights.Take(3).Sum())
-            {
-                List<upgradeGeneric> rareList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.rare).ToList();
-                child.gameObject.GetComponent<Image>().color = rarityColorList[2];
-                loadEffect(rareList, child.gameObject, ref listOfUpgrades);
-            }
-            else if(randomNr > weights.Take(3).Sum() && randomNr <= weights.Take(4).Sum())
-            {
-                List<upgradeGeneric> legendaryList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.legendary).ToList();
-                child.gameObject.GetComponent<Image>().color = rarityColorList[3];
-                loadEffect(legendaryList, child.gameObject, ref listOfUpgrades);
-            }
-            else if(randomNr > weights.Take(4).Sum() && randomNr <= weights.Take(5).Sum())
-            {
-                List<upgradeGeneric> MYTHICList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.MYTHIC).ToList();
-                child.gameObject.GetComponent<Image>().color = rarityColorList[4];
-                loadEffect(MYTHICList, child.gameObject, ref listOfUpgrades);
+            WeightedList<upgradeGeneric.rarity> rarityList = new WeightedList<upgradeGeneric.rarity>();
+            rarityList.Add(upgradeGeneric.rarity.common, weights[0]);
+            rarityList.Add(upgradeGeneric.rarity.uncommon, weights[1]);
+            rarityList.Add(upgradeGeneric.rarity.rare, weights[2]);
+            rarityList.Add(upgradeGeneric.rarity.legendary, weights[3]);
+            rarityList.Add(upgradeGeneric.rarity.MYTHIC, weights[4]);
+            rarityList.Add(upgradeGeneric.rarity.SANS, weights[5]);
+            upgradeGeneric.rarity chosenRarity = rarityList.RandomItem(randomNr);
+            int chosenIndex = rarityList.RandomIndex(randomNr);
 
-            }
-            else if(randomNr > weights.Take(5).Sum())
-            {
-                List<upgradeGeneric> SANSList = listOfUpgrades.Where(x => x.rarityType == upgradeGeneric.rarity.SANS).ToList();
-                child.gameObject.GetComponent<Image>().color = rarityColorList[5];
-                loadEffect(SANSList, child.gameObject, ref listOfUpgrades);
-            }
+            List<upgradeGeneric> itemList = listOfUpgrades.Where(x => x.rarityType == chosenRarity).ToList();
+            child.gameObject.GetComponent<Image>().color = rarityColorList[chosenIndex]; //changes color depending on rarity
+            loadEffect(itemList, child.gameObject, ref listOfUpgrades);
 
         }
         void checkInactive()

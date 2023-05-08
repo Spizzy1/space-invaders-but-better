@@ -91,21 +91,26 @@ public class EnemyManager : MonoBehaviour
         Debug.Log(minCost);
         int currentGrid = 0;
         int attempts = 0;
-          while(savePoints >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 200 && currentGrid <= grid.Count-1)  
-          {
+        while(savePoints >= minCost && grid.SelectMany(x => x.sizeX).Contains(false) && attempts < 200 && currentGrid <= grid.Count-1)  
+        {
+            
             enemyData selectedEnemy = null;
-            List<enemyData> trySpawn = new List<enemyData>(enemyTypes);
+            WeightedList<enemyData> trySpawn = new WeightedList<enemyData>();
+            foreach(var item in enemyTypes)
+            {
+                trySpawn.Add(new WeightedListItem<enemyData>(item, item.weight * (1+((currentGrid/grid.Count)*item.backLineWeight))));
+            }
             while (selectedEnemy == null && savePoints >= minCost)
             {
                 int startIndex = Mathf.Max(trySpawn.Count - 4, 0);
-                int randomEnemy = Random.Range(startIndex, trySpawn.Count);
-                if (trySpawn[randomEnemy].cost <= savePoints)
+                enemyData pickedEnemy = trySpawn.RandomItem();
+                if (pickedEnemy.cost <= savePoints)
                 {
-                    selectedEnemy = trySpawn[randomEnemy];
+                    selectedEnemy = pickedEnemy;
                 }
                 else
                 {
-                    trySpawn.RemoveAt(randomEnemy);
+                    trySpawn.Remove(trySpawn.Where(x => x.Item == pickedEnemy).FirstOrDefault());
                 }
             }
             if (selectedEnemy != null)
@@ -222,6 +227,10 @@ public class EnemyManager : MonoBehaviour
         public GameObject prefab;
         [SerializeField]
         public float cost;
+        [SerializeField]
+        public float weight;
+        [SerializeField]
+        public float backLineWeight;
     }
     [System.Serializable]
     class spawnLocations

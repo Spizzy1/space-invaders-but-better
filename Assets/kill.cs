@@ -17,6 +17,9 @@ public class kill : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(collision.gameObject);
+        if(collision.tag == "bullet")
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

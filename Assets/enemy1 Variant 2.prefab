@@ -145,25 +145,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
---- !u!1 &5390326418398953632 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000240847066095041, guid: 2da902eeee2174a47a68c8b2d0a213e9, type: 3}
-  m_PrefabInstance: {fileID: 5129556621020044641}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &-7716510851716002436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5390326418398953632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07e41494a037cca45a905b788226550d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveGrids: []
-  enemyWaveData: []
-  enemyTypes: []
-  points: 0
-  grid: []
