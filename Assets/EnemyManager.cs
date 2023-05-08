@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Utils;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -53,7 +54,8 @@ public class EnemyManager : MonoBehaviour
         {
             for(int j = 0; grid[i].sizeX.Count > j; j++)
             {
-                grid[i].sizeX[j] = false; 
+                grid[i].sizeX[j] = false;
+                WeightedList<int> hi = new WeightedList<int>();
             }
         }
         if (GameObject.Find("player").GetComponent<Shoot>().firstHit && upgradeScript.items["damageStore"] > 0)
